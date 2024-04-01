@@ -1,0 +1,14 @@
+/Users/sebastian/Sources/CS/TextAdventure/obj/Debug/net8.0/TextAdventure.GeneratedMSBuildEditorConfig.editorconfig
+/Users/sebastian/Sources/CS/TextAdventure/obj/Debug/net8.0/TextAdventure.AssemblyInfoInputs.cache
+/Users/sebastian/Sources/CS/TextAdventure/obj/Debug/net8.0/TextAdventure.AssemblyInfo.cs
+/Users/sebastian/Sources/CS/TextAdventure/obj/Debug/net8.0/TextAdventure.csproj.CoreCompileInputs.cache
+/Users/sebastian/Sources/CS/TextAdventure/bin/Debug/net8.0/TextAdventure
+/Users/sebastian/Sources/CS/TextAdventure/bin/Debug/net8.0/TextAdventure.deps.json
+/Users/sebastian/Sources/CS/TextAdventure/bin/Debug/net8.0/TextAdventure.runtimeconfig.json
+/Users/sebastian/Sources/CS/TextAdventure/bin/Debug/net8.0/TextAdventure.dll
+/Users/sebastian/Sources/CS/TextAdventure/bin/Debug/net8.0/TextAdventure.pdb
+/Users/sebastian/Sources/CS/TextAdventure/obj/Debug/net8.0/TextAdventure.dll
+/Users/sebastian/Sources/CS/TextAdventure/obj/Debug/net8.0/refint/TextAdventure.dll
+/Users/sebastian/Sources/CS/TextAdventure/obj/Debug/net8.0/TextAdventure.pdb
+/Users/sebastian/Sources/CS/TextAdventure/obj/Debug/net8.0/TextAdventure.genruntimeconfig.cache
+/Users/sebastian/Sources/CS/TextAdventure/obj/Debug/net8.0/ref/TextAdventure.dll

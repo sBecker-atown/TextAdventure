@@ -1,0 +1,107 @@
+Basic Text Adventure by me.
+
+// Messages.cs
+Messages.cs keeps track of all the standard messages that can
+appear in different places. Most of the messages are strings,
+some of the messages are methods, especially those that present
+dynamic contents like creature stats or damage dealt/taken.
+
+// Items.cs
+Items.cs keeps track of all the items and their stats.
+Each item is an object of class "Item". Each item has specific
+stats that are defined by the item class. 
+The class "Item" contains a constructor for creating new items.
+"Item" has the subclasses "Weapon" and "Armor". 
+
+Items Stats are: 
+    amount:         A basic int that keeps track of the amount
+                    of the item. This is later used to keep track
+                    of player inventory and creature/room loot.
+    itemName:       A basic string that stores the item name to be
+                    displayed in inventory and loot listing.
+    attackBonus:    A basic int that represents the bonus and item
+                    gives to the players (or creatures) attack 
+                    score. Will be added to player score once 
+                    status is set to active. (See below).
+    damage:         Basic int storing the damage value an item
+                    (more specific a weapon) deals.
+    defenseBonus:   A basic int that represents the bonus and item
+                    gives to the players (or creatures) defense 
+                    score. Will be added to player score once 
+                    status is set to active. (See below).
+    active:         This Boolean representes a switch. If set to
+                    true, an item is equipped (if equippable) and
+                    it's Boni are applied to the player / creature
+                    stats. Non Equippable items (e.g. Candle) are
+                    activated / used by setting boolean to true.
+                    If set to false, item is unequipped/deactivated.
+
+// Creatures.cs
+Creatures.cs keeps track of all creatures. (Keep in mind, player
+is also a creature). 
+Creature.cs also contains a class "HitPoints" that stores some 
+basic, reusable HitPoint values. These values get applied to
+creatures on a level basis. 
+Class "Creature" contains a constructor for an object "Creature"
+and also stores all the creatures.
+
+Each creature has the following stats:
+    creatureName:   Display name of the creature.
+    attack:         Basic int representing the creatures attack 
+                    score. In combat, attack scores are compared 
+                    to defense scores, in order to determine 
+                    a hit or miss.
+    damage:         This basic int represents the base damage a
+                    creature deals when hitting an oponent.
+    defense:        Basic int representing the creatures defense
+                    score. In combat, defense scores are compared
+                    against oponents attack score, to determine
+                    if oponents attack is sucessful.
+    hp:             Basic int representing the creatures HitPoints.
+                    All creatures take one of the variables in
+                    class "HitPoints" as value. 
+                    In combat, HitPoints are reduced by damage
+                    dealt by oponent when oponents attack was 
+                    successful.
+
+// Combat.cs
+Combat.cs takes care of all things combat. 
+In the Classe "Combat" there are a number of different methods,
+that take care of a basic combat system. 
+
+The methods in "Combat" class are: 
+    Fight:          Takes two objects of type Creature as input.
+                    Input 1 represents the player character,
+                    input 2 represents the oposing creature.
+                    The method first presents the player with the
+                    stats of the encountered creature. It then 
+                    asks for the Action the player wants to take,
+                    and then executes the approriate method for 
+                    that choice.
+                    If player didn't run from the fight, the method
+                    then lets the monster act.
+                    if then loops around and presents the updated
+                    monster stats and asks for playeraction again. 
+                    The loop continues until either the player runs
+                    or dies, or the monster is slain. 
+    PlayerAttack:   Takes two objects of type Creature as input.
+                    Input 1 represents the player character,
+                    input 2 represents the oposing creature.
+                    Checks, if players attack score is higher than
+                    monsters defense score. If so, monster.hp get
+                    reduced by player.damage. Then message is 
+                    displayed, showing, how much damage monster 
+                    has taken.
+                    If monster.defense is higher than player.attack,
+                    attack is blocked and corresponding message is
+                    displayed.
+    MonsterAttack:  Same as PlayerAttack, but comparing monster.attack
+                    against player.defense and adjusting corresponding
+                    hitpoints and displayed messages.
+    CheckWinner:    Checks, if either the players or the monsters Hit
+                    Points are <= 0 and then declares that combatant
+                    as dead.
+    
+    
+
+
