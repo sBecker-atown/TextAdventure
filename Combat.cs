@@ -1,11 +1,11 @@
 using System.Dynamic;
 using System.Security.Cryptography.X509Certificates;
 
-namespace TextAdventure
-{
-    class Combat
+namespace TextAdventure;
+
+    static class Combat
     {
-        public int Fight(Creature player, Creature monster)
+        public static int Fight(Creature player, Creature monster)
         {
             string choice;
             do 
@@ -23,36 +23,25 @@ namespace TextAdventure
                 {
                     monster.hp = PlayerAttack(player, monster);
                 }
-                else if (String.Compare(choice, "D") == 0 || 
-                String.Compare(choice, "Defend") == 0)
-                {
-                    // TODO
-                }
                 else if (String.Compare(choice, "R") == 0 || 
                 String.Compare(choice, "Run") == 0)
                 {
                     // TODO
                 }
 
-                /*
-                if (monster.hp == 0)
+                
+                if (monster.hp <= 0)
                 {
                     FightMessage.CreatureDeath(monster);
-                    return true;
                 }
-                else if (player.hp == 0)
+                else if (player.hp <= 0)
                 {
                     Console.Write(Message.dead);
-                    return false;
                 }
-                else{
-                    return true;
-                }
-                */
             }
             while (player.hp > 0 && monster.hp > 0 &&
-                  (String.Compare(choice, "R") == 0 || 
-                  String.Compare(choice, "Run") == 0));
+                  String.Compare(choice, "R") != 0 && 
+                  String.Compare(choice, "Run") != 0);
             return player.hp;
         }
 
@@ -106,4 +95,3 @@ namespace TextAdventure
             }
         }        
     }
-}

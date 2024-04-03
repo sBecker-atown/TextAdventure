@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Security;
 using System.Security.Cryptography.X509Certificates;
 using Microsoft.VisualBasic;
 
@@ -22,11 +23,6 @@ namespace TextAdventure
         public const int Powerful = 10; 
     }
 
-    public class Room
-    {
-        public string Description { get; set; } = string.Empty;
-        public Direction direction;
-    }
     public enum Direction
     {
         none, north, east, south, west,
@@ -35,11 +31,39 @@ namespace TextAdventure
     {
         static void Main(string[] args)
         {
+            // Instantiate player. 
+            var player = new Creature
+            (
+                "Player 1", 
+                Bonus.Weak,
+                Damage.Minor,
+                Bonus.Normal, 
+                HitPoints.Player,
+                new List<Item>(){/*Hier Items rein*/}
+            );
+
+            // Create all rooms.
+            var AllRooms = new List<Room>();
+            AllRooms = Room.CreateRooms(AllRooms);
+
+            GameStart();
+
+            Console.WriteLine(AllRooms[0].Description);
+            Combat.Fight(player, AllRooms[0].Monster);
+        }
+        
+        public static void GameStart()
+        {
+            // Greet the player.
             Console.WriteLine(Message.welcome);
-            Console.WriteLine(RoomMessage.wall);
-            Console.WriteLine(RoomMessage.door);
-            Message.CreatureStats(Creature.player);
-            Creature.CheckHitPoints(Creature.player);
+
+            // Wait for player input to start the game.
+            Console.WriteLine("Press ENTER to start.");
+            Console.ReadLine();
+
+            Console.WriteLine(Message.adventureIntro);
+            Console.WriteLine("ENTER to continue.");
+            Console.ReadLine();
         }
     }
 }

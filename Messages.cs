@@ -1,7 +1,7 @@
 using System.Security.Cryptography.X509Certificates;
 
-namespace TextAdventure
-{
+namespace TextAdventure;
+
     class Message
     {
         // Welcome at program start.
@@ -11,6 +11,9 @@ namespace TextAdventure
             "Enjoy the adventures of learning C# " +
             "which lie ahead." +
             "\n";
+
+        public static string adventureIntro = 
+            "Adventure intro text here.";
 
         // Player Death.
         public static string dead = 
@@ -23,7 +26,7 @@ namespace TextAdventure
             string description = 
                 $"\n{creature.creatureName}\n" +
                 $"Atk: {creature.attack} / Def: {creature.defense}" + 
-                $"\nHP: {creature.hp}";
+                $"\nHP: {creature.hp}\n";
             Console.WriteLine(description);
         }
     }
@@ -54,8 +57,8 @@ namespace TextAdventure
     {
         // What do you want to do in this Fight? 
         public static string fightOptions = 
-            "What do you want to do?\n\n" +
-            "(A)ttack, (D)efend, (R)un\n";
+            "What do you want to do?\n" +
+            "(A)ttack, (R)un\n";
 
         public static string attackBlocked =
             "The attack was blocked.";
@@ -63,8 +66,8 @@ namespace TextAdventure
         // Creature was hit for X damage.
         public static void CreatureHit(Creature player, Creature monster)
         {
-            Console.WriteLine($"{monster.creatureName}" + 
-            $"was hit for {player.damage}");
+            Console.WriteLine($"\n{monster.creatureName}" + 
+            $" was hit for {player.damage} damage.");
         }
 
         // Creature Death.
@@ -79,4 +82,3 @@ namespace TextAdventure
             Console.WriteLine($"You were hit for {monster.damage}");
         }
     }
-}

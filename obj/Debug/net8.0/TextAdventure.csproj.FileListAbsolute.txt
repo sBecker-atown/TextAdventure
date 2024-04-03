@@ -12,3 +12,4 @@
 /Users/sebastian/Sources/CS/TextAdventure/obj/Debug/net8.0/TextAdventure.pdb
 /Users/sebastian/Sources/CS/TextAdventure/obj/Debug/net8.0/TextAdventure.genruntimeconfig.cache
 /Users/sebastian/Sources/CS/TextAdventure/obj/Debug/net8.0/ref/TextAdventure.dll
+/Users/sebastian/Sources/CS/TextAdventure/obj/Debug/net8.0/TextAdventure.sourcelink.json

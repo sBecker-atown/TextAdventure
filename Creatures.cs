@@ -16,33 +16,25 @@ namespace TextAdventure
         public int damage;
         public int defense;
         public int hp;
+        public List<Item> inventory;
 
         
         public Creature(string name, int atk, int dmg, 
-        int def, int Life)
+        int def, int life, List<Item> inventory)
         {
             creatureName = name;
             attack = atk;
             damage = dmg;
             defense = def;
-            hp = Life;
+            hp = life;
+            this.inventory = inventory;
         }
-        public static void CheckHitPoints (Creature creature)
+        public void CheckHitPoints ()
         {
-            if (creature.hp == 0)
+            if (hp == 0)
             {
-                FightMessage.CreatureDeath(creature);
+                FightMessage.CreatureDeath(this); // "this" refers to THIS specific creature.
             }
-        }
-
-        // List of all Creatures that appear in the game.
-        public static Creature player = new Creature
-        (
-            "Player 1", 
-            Bonus.Weak,
-            Damage.Minor,
-            Bonus.Normal, 
-            HitPoints.Player
-        );
+        }        
     }
 }

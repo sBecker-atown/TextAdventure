@@ -1,5 +1,5 @@
-namespace TextAdventure
-{
+namespace TextAdventure;
+
     public class Item
     {
         public int amount;
@@ -24,7 +24,7 @@ namespace TextAdventure
     }
     public class Items
     {
-        public static Item candle = new Item
+        public Item candle = new Item
         (
             1, 
             "Candle", 
@@ -33,7 +33,7 @@ namespace TextAdventure
             Bonus.None, 
             false
         );
-        public static Item skullKey = new Item
+        public Item skullKey = new Item
         (
             1, 
             "Skull Key", 
@@ -42,7 +42,7 @@ namespace TextAdventure
             Bonus.None, 
             false
         );
-        public static Item flowerKey = new Item
+        public Item flowerKey = new Item
         (
             1, 
             "Flower Key", 
@@ -51,7 +51,7 @@ namespace TextAdventure
             Bonus.None, 
             false
         );
-        public static Item healingPotion = new Item
+        public Item healingPotion = new Item
         (
             1,
             "Healing Potion",
@@ -64,7 +64,7 @@ namespace TextAdventure
     }
     public class Armor : Items
     {
-        public static Item leatherArmor = new Item
+        public Item leatherArmor = new Item
         (
             1, 
             "Leather Armor", 
@@ -73,7 +73,7 @@ namespace TextAdventure
             Bonus.Normal, 
             false
         );
-        public static Item chainMail = new Item
+        public Item chainMail = new Item
         (
             1, 
             "Chain Mail", 
@@ -82,7 +82,7 @@ namespace TextAdventure
             Bonus.Strong, 
             false
         );
-        public static Item shield = new Item
+        public Item shield = new Item
         (
             1, 
             "Shield", 
@@ -94,7 +94,7 @@ namespace TextAdventure
     }
     public class Weapon : Items
     {
-        public static Item arrow = new Item
+        public Item arrow = new Item
         (
             1, 
             "Arrow", 
@@ -103,7 +103,7 @@ namespace TextAdventure
             Bonus.None, 
             true
         );
-        public static Item axe = new Item
+        public Item axe = new Item
         (
             1, 
             "Battle Axe", 
@@ -112,7 +112,7 @@ namespace TextAdventure
             Bonus.None, 
             false
         );
-        public static Item bow = new Item
+        public Item bow = new Item
         (
             1, 
             "Longbow", 
@@ -121,7 +121,7 @@ namespace TextAdventure
             Bonus.None, 
             false
         );
-        public static Item longsword = new Item
+        public Item longsword = new Item
         (
             1, 
             "Longsword", 
@@ -131,4 +131,3 @@ namespace TextAdventure
             false
         );
     }
-}

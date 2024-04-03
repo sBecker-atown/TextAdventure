@@ -101,7 +101,3 @@ The methods in "Combat" class are:
     CheckWinner:    Checks, if either the players or the monsters Hit
                     Points are <= 0 and then declares that combatant
                     as dead.
-    
-    
-
-
