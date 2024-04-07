@@ -1,0 +1,64 @@
+1.  Start Game with welcom message and Adventure inventory
+
+2.  Instantiate Player 
+
+3.  Create List for all Rooms
+
+4.  Load Room 1
+        Add to list
+
+5.  Enter Room 1
+        Present Room
+        Fight
+        Set Room state to "No Enemy"
+        What do you want to do
+            Loot
+            Go to
+                If door
+                    What do you want to do?
+                If wall
+                    Present message
+                    What do you want to do?
+                If corridor
+                    Go to 
+                    Exit Room
+6.  Load next Room
+        Add to list
+
+7.  Enter Room 2
+        Do same as in Room 1
+
+
+// Running in fight COULD always reset player to Room 1.
+
+// It would be cool to track which room we are in and automatically
+// enter the appropriate room.
+    // We could implement a boolean in class Room, that does that for us.
+    // If boolean "active" == true -> Player is currently in this room.
+    // If boolean "active" == false -> Player is not in this room.
+    // Entering and exiting a room would then be setting active to
+    // true or false.
+    // We could then use a while loop (player.hp > 0) to loop through
+    // the list of all rooms and always enter, present and fight in
+    // the room where active == true.
+
+// How do we switch rooms? How will Main know, which room to set as active 
+// next? 
+// We could implement a variable "RoomInDirectionIsRoomNoX" that we could 
+// return into main when exiting the room. (enum NextRoom)
+// We could then simple use an if statement that checks agains that variable
+// and then does the "LoadRoomX", "AllRooms.Add(RoomX)" and "EnterRoomX"
+// functions.
+// What should that variable look like? Could be a string. Could be an enum.
+// We would have to also check, if room is already loaded/instantiated.
+
+// We could also, instead use a 2-dimensional array, and map each room to a 
+// position in the array. Each point in the array would then be a single room. 
+
+// Why is LoadRoomX a static? 
+    Because, we want a new room each time.
+    We could instead use a non static function and create one room in main,
+    which we then modify by calling LoadRoomX. Butthat would result in the
+    same room getting overwritten. 
+    But we might need to reenter a room we already have been to.
+    All the Changes would be lost then.

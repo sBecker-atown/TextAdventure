@@ -13,7 +13,7 @@ namespace TextAdventure
         public const int Strong = 4;
         public const int Magic = 6;
     }
-    public static class Damage
+    public class Damage
     {
         public const int None = 0;
         public const int Minor = 2;
@@ -31,27 +31,41 @@ namespace TextAdventure
     {
         static void Main(string[] args)
         {
+            // Start Game with welcome message & intro text
+            GameStart();
+
             // Instantiate player. 
             var player = new Creature
             (
                 "Player 1", 
-                Bonus.Weak,
+                Bonus.Normal,
                 Damage.Minor,
                 Bonus.Normal, 
                 HitPoints.Player,
                 new List<Item>(){/*Hier Items rein*/}
             );
 
-            // Create all rooms.
+            // Create list for all rooms.
             var AllRooms = new List<Room>();
-            AllRooms = Room.CreateRooms(AllRooms);
 
-            GameStart();
+            // Load first Room.
+            var room1 = Room.LoadRoom1();
+            AllRooms.Add(room1);
 
-            Console.WriteLine(AllRooms[0].Description);
-            Combat.Fight(player, AllRooms[0].Monster);
+            // Set Room as active / entered.
+            room1.EnterRoom(player);
+
+            Console.WriteLine($"Player HP: {player.hp}");
+            // TODO 
+            // Make Combat a part of Room, so we can use
+            // room1.Fight(player).
+            
+
+            // TODO 
+            // Room needs a state after fight, for player to loot
+            // monster and room.
         }
-        
+
         public static void GameStart()
         {
             // Greet the player.
@@ -62,7 +76,6 @@ namespace TextAdventure
             Console.ReadLine();
 
             Console.WriteLine(Message.adventureIntro);
-            Console.WriteLine("ENTER to continue.");
             Console.ReadLine();
         }
     }

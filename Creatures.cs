@@ -29,12 +29,19 @@ namespace TextAdventure
             hp = life;
             this.inventory = inventory;
         }
-        public void CheckHitPoints ()
+        public void CheckMonsterHitPoints()
         {
-            if (hp == 0)
+            if (hp <= 0)
             {
                 FightMessage.CreatureDeath(this); // "this" refers to THIS specific creature.
             }
-        }        
+        }
+        public void CheckPlayerHitPoints()
+        {
+            if (hp <= 0)
+            {
+                Console.Write(Message.dead);
+            }
+        } 
     }
 }
