@@ -11,34 +11,41 @@ namespace TextAdventure
     }
     public class Creature
     {
-        public string creatureName { get; set; } = string.Empty;
-        public int attack;
-        public int damage;
-        public int defense;
-        public int hp;
-        public List<Item> inventory;
+        public string CreatureName { get; set; } = string.Empty;
+        public int Attack;
+        public int Damage;
+        public int Defense;
+        public int Hp;
+        public List<Item> Inventory;
 
-        
+        // Constructor.
         public Creature(string name, int atk, int dmg, 
         int def, int life, List<Item> inventory)
         {
-            creatureName = name;
-            attack = atk;
-            damage = dmg;
-            defense = def;
-            hp = life;
-            this.inventory = inventory;
+            CreatureName = name;
+            Attack = atk;
+            Damage = dmg;
+            Defense = def;
+            Hp = life;
+            Inventory = inventory;
         }
-        public void CheckMonsterHitPoints()
+
+        // Checks if creature is dead (HP <= 0). Returns a bool.
+        public bool Dead()
         {
-            if (hp <= 0)
+            if (Hp <= 0)
             {
-                FightMessage.CreatureDeath(this); // "this" refers to THIS specific creature.
+                return true;
+            }
+            else
+            {
+                return false;
             }
         }
+
         public void CheckPlayerHitPoints()
         {
-            if (hp <= 0)
+            if (Hp <= 0)
             {
                 Console.Write(Message.dead);
             }

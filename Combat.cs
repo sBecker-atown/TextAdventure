@@ -4,7 +4,8 @@ namespace TextAdventure;
 
     public class Combat
     {
-        public void Fight(Creature player, Creature monster)
+        public void Fight(Creature player, Creature monster,
+        List<Room> AllRooms)
         {
             string choice;
             do 
@@ -21,72 +22,80 @@ namespace TextAdventure;
                 String.Compare(choice, "Attack") == 0)
                 {
                     // Player attacks
-                    monster.hp = PlayerAttack(player, monster);
+                    monster.Hp = PlayerAttack(player, monster);
+
                     // Wait for enter, cause programm would be 
                     // too fast.
                     Console.ReadLine();
 
-                    // Check if Monster is Dead.
-                    monster.CheckMonsterHitPoints();
-                    
-                    // TODO
-                    // Needs an if to exit loop if Monster is Dead.
-                    // Could make CheckHitPoints a bool and name 
-                    // it CheckIfDead. 
+                    // Check if Monster is Dead and do appropriate
+                    // actions. If monster alive, monster attacks.
+                    // If monster dead, report death to player.
+                    if (!monster.Dead())
+                    {
+                        player.Hp = MonsterAttack(player, monster);
+                    }
+                    else if (monster.Dead())
+                    {
+                        FightMessage.CreatureDeath(monster);
+                    }
 
-                    // Monster attacks if monster still alive
-                    player.hp = MonsterAttack(player, monster);
-                    
-                    // Check player HP.
-                    player.CheckPlayerHitPoints();
+                    // Check if player is alive. If not, display 
+                    // Game Over Message.
+                    if (player.Dead())
+                    {
+                        Console.WriteLine(Message.dead);
+                    }
                 }
                 else if (String.Compare(choice, "R") == 0 || 
                         String.Compare(choice, "Run") == 0)
                 {
                     // TODO
-                    // Reset player to room1.
+                    // Reset player to room0.
+                    Console.WriteLine("\nYou run away.\n");
+                    AllRooms[0].EnterRoom(player, AllRooms);
                 }
                 else if (String.Compare(choice, "I") == 0 ||
                         String.Compare(choice, "Inventory") == 0)
                 {
-                    // TODO 
-                    // Open and use Inventory.
+                    Console.WriteLine();
+                    Program.Inventory(player);
                 }
             }
-            while (player.hp > 0 && monster.hp > 0);
+            while (player.Hp > 0 && monster.Hp > 0);
         }
 
         // Player attacks monster.
         public int PlayerAttack
         (Creature player, Creature monster)
         {
-            if (player.attack >= monster.defense) 
+            if (player.Attack >= monster.Defense) 
             {
-                monster.hp -= player.damage;
+                monster.Hp -= player.Damage;
                 FightMessage.CreatureHit(player, monster);
             }
-            else if (player.attack < monster.defense)
+            else if (player.Attack < monster.Defense)
             {
                 Console.Write(FightMessage.attackBlocked);
             }
-            return monster.hp;
+            return monster.Hp;
         }
 
         // Monster attacks player.
         public int MonsterAttack
         (Creature player, Creature monster)
         {
-            Console.WriteLine($"{monster.creatureName} attacks!");
-            if (monster.attack >= player.defense) 
+            Console.WriteLine($"{monster.CreatureName} attacks!\n");
+            if (monster.Attack >= player.Defense) 
             {
-                player.hp -= monster.damage;
+                player.Hp -= monster.Damage;
                 FightMessage.PlayerHit(monster);
             }
-            else if (monster.attack < player.defense)
+            else if (monster.Attack < player.Defense)
             {
                 Console.Write(FightMessage.attackBlocked);
             }
-            return player.hp;
+            return player.Hp;
         }
 
         // Checks if player survives 
@@ -95,12 +104,12 @@ namespace TextAdventure;
         public bool CheckWinner
         (Creature player, Creature monster)
         {
-            if (monster.hp <= 0)
+            if (monster.Hp <= 0)
             {
                 FightMessage.CreatureDeath(monster);
                 return true;
             }    
-            else if (player.hp <= 0)
+            else if (player.Hp <= 0)
             {
                 Console.Write(Message.dead);
                 return false;

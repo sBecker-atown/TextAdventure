@@ -42,28 +42,25 @@ namespace TextAdventure
                 Damage.Minor,
                 Bonus.Normal, 
                 HitPoints.Player,
-                new List<Item>(){/*Hier Items rein*/}
+                new List<Item>()
+                    {
+                    Create.Candle(), 
+                    Create.HealingPotion() 
+                    /*Hier Items rein*/ 
+                    }
             );
 
             // Create list for all rooms.
             var AllRooms = new List<Room>();
 
             // Load first Room.
-            var room1 = Room.LoadRoom1();
-            AllRooms.Add(room1);
+            var room0 = Load.Room0();
+            AllRooms.Add(room0);
 
             // Set Room as active / entered.
-            room1.EnterRoom(player);
+            room0.EnterRoom(player, AllRooms);
 
-            Console.WriteLine($"Player HP: {player.hp}");
-            // TODO 
-            // Make Combat a part of Room, so we can use
-            // room1.Fight(player).
-            
-
-            // TODO 
-            // Room needs a state after fight, for player to loot
-            // monster and room.
+            Console.WriteLine($"Player HP: {player.Hp}");         
         }
 
         public static void GameStart()
@@ -77,6 +74,39 @@ namespace TextAdventure
 
             Console.WriteLine(Message.adventureIntro);
             Console.ReadLine();
+        }
+
+        public static void Inventory(Creature player)
+        {
+            // TODO
+            // If no Item in player.Inventory
+                // WriteLine("Your inventory is empty.")
+
+            foreach (var Item in player.Inventory)
+            {
+                Console.WriteLine($"{Item.Name}");
+            }
+            Console.WriteLine();
+            Console.WriteLine(Message.inventoryOptions);
+            string choice = Console.ReadLine()!;
+
+            if (choice.StartsWith('E'))
+            {
+                // TODO 
+                // Identify substring in choice, where substring
+                // equals an ItemName in Inventory.
+                // Then check if that Item is already active.
+                    // If so, say "Item already equipt. Do you 
+                    // want to unequipt {ItemName}?"
+                        // If ReadLine() == 'Y'
+                            // Set this.Item.Active = false.
+                        // Else if ReadLine() == 'N'
+                            // Leave as is.
+                    // If Item not active
+                        // Set this.Item.Active = true.
+                // Also needs to check, if another item of the
+                // same type is already equipt.
+            }
         }
     }
 }

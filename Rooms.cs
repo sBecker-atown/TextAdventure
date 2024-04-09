@@ -29,7 +29,7 @@ public class Room(string name, string description,
     // Displays the Rooms initial description to the player.
     public void PresentRoom()
     {
-        switch (Monster.hp)
+        switch (Monster.Hp)
         {
             case > 0:
                 Console.WriteLine(Description);
@@ -37,75 +37,23 @@ public class Room(string name, string description,
             case <= 0:
                 Console.WriteLine(DescriptionAfterFight);
                 Console.WriteLine(RoomMessage.whatToDo);
+                Console.ReadLine();
                 break;
         }
         
     }
 
-    public void EnterRoom(Creature player)
+    public void EnterRoom(Creature player, List<Room> AllRooms)
     {
         Active = true;
         PresentRoom();
-        if (Monster.hp > 0)
+        if (!Monster.Dead())
         {
-            Encounter.Fight(player, Monster);
+            Encounter.Fight(player, Monster, AllRooms);
         }
-    }
-
-    public static Room LoadRoom1()
-    {
-        Room room = new (
-            // Name.
-            "Room 1",
-            // Initial Description.
-            "You stand at the entry of a dank crypt, vines are\n" +
-            "growing out of old stone, hanging partly over the " +
-            "entry.\nYou see the following creature guarding" +
-            "the entrance:",
-            // Creature.
-            new Creature(
-                "Skeleton",
-                Bonus.Weak,
-                Damage.Minor,
-                Bonus.Weak,
-                HitPoints.Low,
-                []
-            ),
-            // Loot.
-            [],
-            // Active?
-            false,
-            // Encounter.
-            new Combat(),
-            // Description after fight.
-            "You stand at the entry of a dank crypt, vines are\n" +
-            "growing out of old stone, hanging partly over the " +
-            "entry.\n"
-        );
-
-        return room;
-    }
-
-    public static Room LoadRoom2()
-    {
-        Room room = new (
-            // Name.
-            "Room 2",
-            // Description.
-            "You stand at the entry of a dank crypt, vines are\n" +
-            "growing out of old stone, hanging partly over the entry.\n" +
-            "You see the following creature:",
-            // Creature.
-            new Creature("", 0, 0, 0, 0, []),
-            // Loot.
-            [],
-            // Active?
-            false,
-            // Encounter.
-            new Combat(),
-            // Description after fight.
-            ""
-        );
-        return room;
+        if (!player.Dead())
+        {
+            PresentRoom();
+        }
     }
 }

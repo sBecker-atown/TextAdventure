@@ -16,18 +16,21 @@ namespace TextAdventure;
 
         // Player Death.
         public static string dead = 
-            "\n" +
             "GAME OVER! YOU DIED!\n";
         
         // Creature description
         public static void CreatureStats(Creature creature)
         {
             string description = 
-                $"\n{creature.creatureName}\n" +
-                $"Atk: {creature.attack} / Def: {creature.defense}" + 
-                $"\nHP: {creature.hp}\n";
+                $"{creature.CreatureName}\n" +
+                $"Atk: {creature.Attack} / Def: {creature.Defense}" + 
+                $"\nHP: {creature.Hp}\n";
             Console.WriteLine(description);
         }
+        public static string inventoryOptions =
+            "What do you want to do?\n\n" +
+            "(E)quip (Item), Go (direction),\n" + 
+            "(S)earch Room, (L)eave dungeon\n";
     }
     class RoomMessage : Message
     {
@@ -35,21 +38,21 @@ namespace TextAdventure;
         public static string whatToDo =
             "What do you want to do?\n\n" +
             "Open (I)nventory, Go (direction),\n" + 
-            "(S)earch Room, (L)eave dungeon";
+            "(S)earch Room, (L)eave dungeon\n";
 
         // Facing a wall.
         public static string wall = 
-            "\n" + "You are facing a wall.\n" +
-            "There is no way forward here.\n" + whatToDo + ";";
+            "You are facing a wall.\n" +
+            "There is no way forward here.\n" + whatToDo + ";\n";
             
         // Facing a corridor.
         public static string corridor = 
-            "\n" + "You are facing a corridor.\n" + whatToDo + ";";
+            "You are facing a corridor.\n" + whatToDo + ";\n";
 
         // Facing a door.
         public static string door = 
-            "\n" + "You are facing a door.\n" + whatToDo +
-            ", (O)pen door";        
+            "You are facing a door.\n" + whatToDo +
+            ", (O)pen door\n";        
     }
 
     class FightMessage : Message
@@ -57,27 +60,27 @@ namespace TextAdventure;
         // What do you want to do in this Fight? 
         public static string fightOptions = 
             "What do you want to do?\n" +
-            "(A)ttack, (R)un\n";
+            "(A)ttack, (R)un, Open (I)nventory\n";
 
         public static string attackBlocked =
-            "\nThe attack was blocked.\n";
+            "The attack was blocked.\n\n";
 
         // Creature was hit for X damage.
         public static void CreatureHit(Creature player, Creature monster)
         {
-            Console.WriteLine($"\n{monster.creatureName}" + 
-            $" was hit for {player.damage} damage.");
+            Console.WriteLine($"\n{monster.CreatureName}" + 
+            $" was hit for {player.Damage} damage.");
         }
 
         // Creature Death.
         public static void CreatureDeath(Creature monster)
         {
-            Console.WriteLine($"{monster.creatureName} died!\n");
+            Console.WriteLine($"{monster.CreatureName} died!\n");
         }
 
         // Player was hit for X damage.
         public static void PlayerHit(Creature monster)
         {
-            Console.WriteLine($"You were hit for {monster.damage}");
+            Console.WriteLine($"You were hit for {monster.Damage}\n");
         }
     }
