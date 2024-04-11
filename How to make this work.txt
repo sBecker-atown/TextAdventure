@@ -1,4 +1,4 @@
-1.  Start Game with welcom message and Adventure inventory
+1.  Start Game with welcome message and Adventure inventory
 
 2.  Instantiate Player 
 

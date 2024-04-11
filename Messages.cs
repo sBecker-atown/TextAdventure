@@ -29,7 +29,7 @@ namespace TextAdventure;
         }
         public static string inventoryOptions =
             "What do you want to do?\n\n" +
-            "(E)quip (Item), Go (direction),\n" + 
+            "(E)quip (Item), (U)nequipt (Item), Go (direction),\n" +
             "(S)earch Room, (L)eave dungeon\n";
     }
     class RoomMessage : Message

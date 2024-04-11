@@ -1,9 +1,4 @@
-﻿using System;
-using System.Security;
-using System.Security.Cryptography.X509Certificates;
-using Microsoft.VisualBasic;
-
-namespace TextAdventure
+﻿namespace TextAdventure
 {
     public class Bonus
     {
@@ -25,7 +20,7 @@ namespace TextAdventure
 
     public enum Direction
     {
-        none, north, east, south, west,
+        None, North, East, South, West,
     }
     class Program
     {
@@ -45,7 +40,7 @@ namespace TextAdventure
                 new List<Item>()
                     {
                     Create.Candle(), 
-                    Create.HealingPotion() 
+                    Create.HealingPotion()
                     /*Hier Items rein*/ 
                     }
             );
@@ -56,6 +51,9 @@ namespace TextAdventure
             // Load first Room.
             var room0 = Load.Room0();
             AllRooms.Add(room0);
+            
+            // Adding to List can also be done like this:
+            // player.Inventory.Add(Create.Longsword());
 
             // Set Room as active / entered.
             room0.EnterRoom(player, AllRooms);
@@ -78,35 +76,80 @@ namespace TextAdventure
 
         public static void Inventory(Creature player)
         {
-            // TODO
-            // If no Item in player.Inventory
-                // WriteLine("Your inventory is empty.")
-
-            foreach (var Item in player.Inventory)
+            // If Inventory empty, say inventory empty.
+            if (player.Inventory.Count == 0)
             {
-                Console.WriteLine($"{Item.Name}");
+                Console.WriteLine("Your inventory is empty\n");
+                return;
             }
-            Console.WriteLine();
-            Console.WriteLine(Message.inventoryOptions);
-            string choice = Console.ReadLine()!;
-
-            if (choice.StartsWith('E'))
+            else
             {
+                // List all Inventory items
+                foreach (var Item in player.Inventory)
+                {
+                    Console.WriteLine($"{Item.Name}");
+                }
+                Console.WriteLine();
+                Console.WriteLine(Message.inventoryOptions);
+                string choice = Console.ReadLine()!;
+
+                // TOCHECK
+                // IEnumerable could be useful here?
                 // TODO 
-                // Identify substring in choice, where substring
-                // equals an ItemName in Inventory.
-                // Then check if that Item is already active.
-                    // If so, say "Item already equipt. Do you 
-                    // want to unequipt {ItemName}?"
-                        // If ReadLine() == 'Y'
-                            // Set this.Item.Active = false.
-                        // Else if ReadLine() == 'N'
-                            // Leave as is.
-                    // If Item not active
-                        // Set this.Item.Active = true.
                 // Also needs to check, if another item of the
                 // same type is already equipt.
+                // Added enum ItemCategory for that purpose.
+                // We can now check if another item with same
+                // Category has status active. 
+                // Needs to loop through List of items again.
+
+                if (choice.StartsWith('E'))
+                {
+                    // Equip Item
+                    InventoryEquip(player, choice);
+                }
+                else if (choice.StartsWith('U'))
+                {
+                    // Unequip Item
+                    InventoryUnequip(player, choice);
+                }
+            }    
+        }
+
+        public static void InventoryEquip(Creature player, string choice)
+        {
+            int c = 0;
+            foreach (var Item in player.Inventory)
+            {
+                if (choice.Contains(Item.Name))
+                {
+                    Item.UseItem(player);
+                    c++;
+                    return;
+                }
             }
+            if (c == 0)
+            {
+                Console.WriteLine("No such item\n");
+            }                                
+        }
+
+        public static void InventoryUnequip(Creature player, string choice)
+        {
+            int c = 0;
+            foreach (var Item in player.Inventory)
+            {
+                if (choice.Contains(Item.Name))
+                {
+                    Item.UnequipItem(player);
+                    c++;
+                    return;
+                }
+            }
+            if (c == 0)
+            {
+                Console.WriteLine("No such item\n");
+            }                
         }
     }
 }

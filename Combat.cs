@@ -1,5 +1,3 @@
-using Microsoft.VisualBasic;
-
 namespace TextAdventure;
 
     public class Combat

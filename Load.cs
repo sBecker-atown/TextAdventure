@@ -67,6 +67,7 @@ public class Create
         Item candle = new
         (
             1, 
+            ItemCategory.Misc,
             "Candle", 
             Bonus.None,
             Damage.None,
@@ -81,6 +82,7 @@ public class Create
         Item skullKey = new
         (
             1, 
+            ItemCategory.Misc,
             "Skull Key", 
             Bonus.None,
             Damage.None,
@@ -95,6 +97,7 @@ public class Create
         Item flowerKey = new
         (
             1, 
+            ItemCategory.Misc,
             "Flower Key", 
             Bonus.None, 
             Damage.None,
@@ -109,6 +112,7 @@ public class Create
         Item healingPotion = new
         (
             1,
+            ItemCategory.Healing,
             "Healing Potion",
             Bonus.None,
             Damage.Major,
@@ -123,6 +127,7 @@ public class Create
         Item leatherArmor = new
         (
             1, 
+            ItemCategory.Armor,
             "Leather Armor", 
             Bonus.None, 
             Damage.None,
@@ -137,6 +142,7 @@ public class Create
         Item chainMail = new
         (
             1, 
+            ItemCategory.Armor,
             "Chain Mail", 
             Bonus.None, 
             Damage.None,
@@ -151,6 +157,7 @@ public class Create
         Item shield = new
         (
             1, 
+            ItemCategory.Shield,
             "Shield", 
             Bonus.None, 
             Damage.None,
@@ -165,6 +172,7 @@ public class Create
         Item arrow = new
         (
             1, 
+            ItemCategory.Ammunition,
             "Arrow", 
             Bonus.None,
             Damage.None,
@@ -179,6 +187,7 @@ public class Create
         Item axe = new
         (
             1, 
+            ItemCategory.Weapon,
             "Battle Axe", 
             Bonus.Weak, 
             Damage.Normal,
@@ -193,6 +202,7 @@ public class Create
         Item bow = new
         (
             1, 
+            ItemCategory.Weapon,
             "Longbow", 
             Bonus.Normal, 
             Damage.Normal,
@@ -207,6 +217,7 @@ public class Create
         Item longsword = new
         (
             1, 
+            ItemCategory.Weapon,
             "Longsword", 
             Bonus.Normal, 
             Damage.Normal,
