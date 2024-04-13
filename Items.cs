@@ -1,12 +1,12 @@
 namespace TextAdventure;
 
-public enum ItemCategory
-{
-    Healing, Armor, Shield, Ammunition, Weapon, Misc
-}
-public class Item(int number, ItemCategory category, string name, int atk, int dmg,
-int def, bool act)
-{
+    public enum ItemCategory
+    {
+        Healing, Armor, Shield, Ammunition, Weapon, Misc
+    }
+    public class Item(int number, ItemCategory category, string name, int atk, int dmg,
+    int def, bool act)
+    {
         public int Amount {get; set;} = number;
         public  ItemCategory Category {get; set;} = category;
         public string Name {get;} = name;
@@ -15,7 +15,7 @@ int def, bool act)
         public int DefenseBonus {get;} = def;
         public bool Active {get; set;} = act;
 
-        // Checks if Iteam is a Healing Item, if so applies
+        // Checks if Item is a Healing Item, if so applies
         // the Value stored in "Damage" to player.Hp and then
         // reduces amount in inventory by 1. If amount results in
         // 0, item is removed from inventory.
@@ -79,8 +79,11 @@ int def, bool act)
             }
         }
 
+        // Unused Code.
+        /*
         public void AddToInventory(Creature creature)
         {
             creature.Inventory.Add(this);
         }
-}
+        */
+    }

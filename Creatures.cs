@@ -1,14 +1,5 @@
-namespace TextAdventure
-{
-    public class HitPoints
-    {
-        public const int Low = 5;
-        public const int Medium = 10;
-        public const int High = 15;
-        public const int MiniBoss = 20;
-        public const int Boss = 30;
-        public const int Player = 15;
-    }
+namespace TextAdventure;
+
     public class Creature
     {
         public string CreatureName { get; set; } = string.Empty;
@@ -42,13 +33,4 @@ namespace TextAdventure
                 return false;
             }
         }
-
-        public void CheckPlayerHitPoints()
-        {
-            if (Hp <= 0)
-            {
-                Console.Write(Message.dead);
-            }
-        } 
     }
-}

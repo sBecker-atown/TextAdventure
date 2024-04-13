@@ -42,8 +42,8 @@ is also a creature).
 Creature.cs also contains a class "HitPoints" that stores some 
 basic, reusable HitPoint values. These values get applied to
 creatures on a level basis. 
-Class "Creature" contains a constructor for an object "Creature"
-and also stores all the creatures.
+Class "Creature" contains a constructor for an object "Creature".
+Creatures are created inside of Load.cs -> class Load
 
 Each creature has the following stats:
     creatureName:   Display name of the creature.
@@ -66,7 +66,7 @@ Each creature has the following stats:
 
 // Combat.cs
 Combat.cs takes care of all things combat. 
-In the Classe "Combat" there are a number of different methods,
+In the Class "Combat" there are a number of different methods,
 that take care of a basic combat system. 
 
 The methods in "Combat" class are: 
@@ -75,13 +75,13 @@ The methods in "Combat" class are:
                     input 2 represents the oposing creature.
                     The method first presents the player with the
                     stats of the encountered creature. It then 
-                    asks for the Action the player wants to take,
+                    asks for the action the player wants to take,
                     and then executes the approriate method for 
                     that choice.
                     If player didn't run from the fight, the method
-                    then lets the monster act.
-                    if then loops around and presents the updated
-                    monster stats and asks for playeraction again. 
+                    then lets the monster act if it is still alive.
+                    It then loops around and presents the updated
+                    monster stats and asks for player action again. 
                     The loop continues until either the player runs
                     or dies, or the monster is slain. 
     PlayerAttack:   Takes two objects of type Creature as input.
@@ -101,3 +101,4 @@ The methods in "Combat" class are:
     CheckWinner:    Checks, if either the players or the monsters Hit
                     Points are <= 0 and then declares that combatant
                     as dead.
+                    Currently unused.

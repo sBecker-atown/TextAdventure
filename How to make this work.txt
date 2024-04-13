@@ -29,7 +29,7 @@
         Do same as in Room 1
 
 
-// Running in fight COULD always reset player to Room 1.
+Running from a fight will always reset player to Room 0.
 
 // It would be cool to track which room we are in and automatically
 // enter the appropriate room.
@@ -62,3 +62,6 @@
     same room getting overwritten. 
     But we might need to reenter a room we already have been to.
     All the Changes would be lost then.
+
+// Rooms need to have a list of enums "RoomBoundaries" and save wall-types
+// inside of that list. List<WallType>[0] ≙ North, List<WallType>[1] ≙ East etc.

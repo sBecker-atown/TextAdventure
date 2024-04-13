@@ -1,27 +1,13 @@
-﻿namespace TextAdventure
-{
-    public class Bonus
-    {
-        public const int None = 0;
-        public const int Weak = 1;
-        public const int Normal = 2;
-        public const int Strong = 4;
-        public const int Magic = 6;
-    }
-    public class Damage
-    {
-        public const int None = 0;
-        public const int Minor = 2;
-        public const int Normal = 4;
-        public const int Major = 6;
-        public const int Heavy = 8;
-        public const int Powerful = 10; 
-    }
+﻿using System.Collections;
+using System.Diagnostics.SymbolStore;
+
+namespace TextAdventure;
 
     public enum Direction
     {
         None, North, East, South, West,
     }
+
     class Program
     {
         static void Main(string[] args)
@@ -30,20 +16,7 @@
             GameStart();
 
             // Instantiate player. 
-            var player = new Creature
-            (
-                "Player 1", 
-                Bonus.Normal,
-                Damage.Minor,
-                Bonus.Normal, 
-                HitPoints.Player,
-                new List<Item>()
-                    {
-                    Create.Candle(), 
-                    Create.HealingPotion()
-                    /*Hier Items rein*/ 
-                    }
-            );
+            var player = Birth.Player();
 
             // Create list for all rooms.
             var AllRooms = new List<Room>();
@@ -56,9 +29,7 @@
             // player.Inventory.Add(Create.Longsword());
 
             // Set Room as active / entered.
-            room0.EnterRoom(player, AllRooms);
-
-            Console.WriteLine($"Player HP: {player.Hp}");         
+            room0.EnterRoom(player, AllRooms);        
         }
 
         public static void GameStart()
@@ -90,11 +61,11 @@
                     Console.WriteLine($"{Item.Name}");
                 }
                 Console.WriteLine();
-                Console.WriteLine(Message.inventoryOptions);
-                string choice = Console.ReadLine()!;
+                string playerAction = Ask.InventoryOptions();
 
                 // TOCHECK
                 // IEnumerable could be useful here?
+
                 // TODO 
                 // Also needs to check, if another item of the
                 // same type is already equipt.
@@ -103,53 +74,106 @@
                 // Category has status active. 
                 // Needs to loop through List of items again.
 
-                if (choice.StartsWith('E'))
+                if (playerAction.StartsWith('E')
+                    || playerAction.StartsWith('e'))
                 {
                     // Equip Item
-                    InventoryEquip(player, choice);
+                    InventoryEquip(player, playerAction);
                 }
-                else if (choice.StartsWith('U'))
+                else if (playerAction.StartsWith('U') 
+                        || playerAction.StartsWith('u'))
                 {
                     // Unequip Item
-                    InventoryUnequip(player, choice);
+                    InventoryUnequip(player, playerAction);
+                }
+                else if (playerAction.StartsWith('C')
+                        || playerAction.StartsWith('c'))
+                {
+                    // Close inventory
+                    Console.WriteLine("Inventory closed.\n");
+                    return;
                 }
             }    
         }
 
-        public static void InventoryEquip(Creature player, string choice)
+        public static void InventoryEquip(Creature player, string action)
         {
-            int c = 0;
+            var itemExists = false;
             foreach (var Item in player.Inventory)
             {
-                if (choice.Contains(Item.Name))
+                if (action.Contains(Item.Name))
                 {
+                    // Get itemposition in list.
+                    var index = player.Inventory.IndexOf(Item);
+
+                    // TODO
+                    // Check against other items in inventory
                     Item.UseItem(player);
-                    c++;
+                    itemExists = true;
                     return;
                 }
             }
-            if (c == 0)
+            if (itemExists == false)
             {
                 Console.WriteLine("No such item\n");
             }                                
         }
 
-        public static void InventoryUnequip(Creature player, string choice)
+        public static void InventoryUnequip(Creature player, string action)
         {
-            int c = 0;
+            var itemExists = false;
             foreach (var Item in player.Inventory)
             {
-                if (choice.Contains(Item.Name))
+                if (action.Contains(Item.Name))
                 {
                     Item.UnequipItem(player);
-                    c++;
+                    itemExists = true;
                     return;
                 }
             }
-            if (c == 0)
+            if (itemExists == false)
             {
                 Console.WriteLine("No such item\n");
             }                
         }
+
+        public static void AddToInventory(Creature player, Room room, string action)
+        {
+            var itemExists = false;
+            foreach (var Item in room.Loot)
+            {
+                if (action.Contains(Item.Name))
+                {
+                    // Check if Item already exists and if so increase amount
+                    // Else add item to inventory and remove item from list 
+                    // of loot in this room.
+                    var playerHasItem = false;
+                    for (int i = 0; i < player.Inventory.Count; i++)
+                    {
+                        if (string.Compare(action, player.Inventory[i].Name) == 0)
+                        {
+                            player.Inventory[i].Amount++;
+                            playerHasItem = true;
+                            itemExists = true;
+                            room.Loot.Remove(Item);
+                            Console.WriteLine($"{Item.Name} added to inventory\n");
+                            return;
+                        }
+                    }
+                    if (playerHasItem == false)
+                    {
+                        player.Inventory.Add(Item);
+                        playerHasItem = true;
+                        itemExists = true;
+                        room.Loot.Remove(Item);
+                        Console.WriteLine($"{Item.Name} added to inventory\n");
+                        return;
+                    }       
+                }
+            }
+            if (itemExists == false)
+            {
+                Console.WriteLine("No such item\n");
+            }                                
+        }
     }
-}

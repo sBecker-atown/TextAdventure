@@ -5,19 +5,18 @@ namespace TextAdventure;
         public void Fight(Creature player, Creature monster,
         List<Room> AllRooms)
         {
-            string choice;
+            // Fight while both player and monster are alive.
             do 
             {
                 // Present monster and prompt for player action.
                 Message.CreatureStats(monster);
-                Console.Write(FightMessage.fightOptions);
-
-                // Get Player Choice
-                choice = Console.ReadLine()!;
+                
+                string playerAction = Ask.FightOptions();
 
                 // Check player choice and execute player action.
-                if (String.Compare(choice, "A") == 0 || 
-                String.Compare(choice, "Attack") == 0)
+                
+                // Player wants to attack: 
+                if (playerAction.StartsWith('A') || playerAction.StartsWith('a'))
                 {
                     // Player attacks
                     monster.Hp = PlayerAttack(player, monster);
@@ -32,29 +31,30 @@ namespace TextAdventure;
                     if (!monster.Dead())
                     {
                         player.Hp = MonsterAttack(player, monster);
+                        
+                        // Check if player is alive. If not, display 
+                        // Game Over Message.
+                        if (player.Dead())
+                        {
+                            Console.WriteLine(Message.dead);
+                            break;
+                        }
                     }
                     else if (monster.Dead())
                     {
                         FightMessage.CreatureDeath(monster);
                     }
-
-                    // Check if player is alive. If not, display 
-                    // Game Over Message.
-                    if (player.Dead())
-                    {
-                        Console.WriteLine(Message.dead);
-                    }
                 }
-                else if (String.Compare(choice, "R") == 0 || 
-                        String.Compare(choice, "Run") == 0)
+                // Player wants to run:
+                else if (playerAction.StartsWith('R') || 
+                        playerAction.StartsWith('r'))
                 {
-                    // TODO
-                    // Reset player to room0.
                     Console.WriteLine("\nYou run away.\n");
                     AllRooms[0].EnterRoom(player, AllRooms);
                 }
-                else if (String.Compare(choice, "I") == 0 ||
-                        String.Compare(choice, "Inventory") == 0)
+                // Player wants to open Inventory
+                else if (playerAction.StartsWith('I') ||
+                        playerAction.StartsWith('i'))
                 {
                     Console.WriteLine();
                     Program.Inventory(player);
@@ -99,6 +99,7 @@ namespace TextAdventure;
         // Checks if player survives 
         // (returns true if player wins fight)
         // Currently unused.
+        /* 
         public bool CheckWinner
         (Creature player, Creature monster)
         {
@@ -117,4 +118,6 @@ namespace TextAdventure;
                 return true;
             }
         }        
+        */
     }
+    
