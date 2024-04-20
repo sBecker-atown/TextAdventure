@@ -44,16 +44,9 @@ Running from a fight will always reset player to Room 0.
 
 // How do we switch rooms? How will Main know, which room to set as active 
 // next? 
-// We could implement a variable "RoomInDirectionIsRoomNoX" that we could 
-// return into main when exiting the room. (enum NextRoom)
-// We could then simple use an if statement that checks agains that variable
-// and then does the "LoadRoomX", "AllRooms.Add(RoomX)" and "EnterRoomX"
-// functions.
-// What should that variable look like? Could be a string. Could be an enum.
-// We would have to also check, if room is already loaded/instantiated.
-
-// We could also, instead use a 2-dimensional array, and map each room to a 
-// position in the array. Each point in the array would then be a single room. 
+// AllRooms stores all the Rooms. 
+// We can then use a simple if statement that checks agains "Room.Active"
+// and then does the "AllRooms[x].EnterRoom()" function.
 
 // Why is LoadRoomX a static? 
     Because, we want a new room each time.
@@ -65,3 +58,9 @@ Running from a fight will always reset player to Room 0.
 
 // Rooms need to have a list of enums "RoomBoundaries" and save wall-types
 // inside of that list. List<WallType>[0] ≙ North, List<WallType>[1] ≙ East etc.
+    // How do we track, which door is in this room? 
+    // In specific: How do we check inside a room if we need a special key for
+    // this specific door?
+        // class Door? 
+        // Each door:   bool locked = true or false;
+                        string key = "nameOfKey";

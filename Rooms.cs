@@ -51,9 +51,9 @@ namespace TextAdventure;
         public void EnterRoom(Creature player, List<Room> AllRooms)
         {
             Active = true;
-            PresentRoom();
             if (!Monster.Dead())
             {
+                PresentRoom();
                 Encounter.Fight(player, Monster, AllRooms);
             }
             if (!player.Dead())

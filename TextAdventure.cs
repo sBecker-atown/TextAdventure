@@ -21,15 +21,14 @@ namespace TextAdventure;
             // Create list for all rooms.
             var AllRooms = new List<Room>();
 
-            // Load first Room.
-            var room0 = Load.Room0();
-            AllRooms.Add(room0);
+            // Load all rooms.
+            Load.Rooms(AllRooms);
             
             // Adding to List can also be done like this:
             // player.Inventory.Add(Create.Longsword());
 
             // Set Room as active / entered.
-            room0.EnterRoom(player, AllRooms);        
+            AllRooms[0].EnterRoom(player, AllRooms);        
         }
 
         public static void GameStart()
