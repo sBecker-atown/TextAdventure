@@ -2,12 +2,26 @@
 
 namespace TextAdventure;
 
-    public class Room(string name, string description, 
-                     Creature monster, List<Item> loot, bool active,
+    public enum WallType
+    {
+        None, Door, Wall, Passage
+    }
+
+    public enum State
+    {
+        Active, Inactive, Open, Closed
+    }
+
+    public class Room(string name, List<RoomBoundary> walls, 
+                     string description, Creature monster, 
+                     List<Item> loot, bool active,
                      Combat fight, string descriptionNoFight)
     {
         // Name of the room.
         public string Name {get; set;} = name;
+
+        // Walls of the room.
+        public List<RoomBoundary> Walls {get;} = walls;
     
         // Initial desctiption of the room.
         public string Description {get;} = description;
@@ -19,7 +33,7 @@ namespace TextAdventure;
         public List<Item> Loot {get; set;} = loot;
     
         // Determines if player is currently in this room.
-        public bool Active {get; set;} = active;
+        public bool RoomActive {get; set;} = active;
     
         // Instantiates the combat functionality. 
         public Combat Encounter {get; set;} = fight;
@@ -50,7 +64,7 @@ namespace TextAdventure;
         // inside of this room. 
         public void EnterRoom(Creature player, List<Room> AllRooms)
         {
-            Active = true;
+            RoomActive = true;
             if (!Monster.Dead())
             {
                 PresentRoom();
@@ -64,37 +78,76 @@ namespace TextAdventure;
                 do 
                 {
                     // Ask player what to do. 
-                    string playerAction = Ask.WhatToDo();
-
-                    // Open Inventory
-                    if (playerAction.StartsWith('I') ||
-                            playerAction.StartsWith('i'))
-                    {
-                        Console.WriteLine();
-                        Program.Inventory(player);
-                    }
+                    string playerAction = Ask.WhatToDo(this);
 
                     // TODO
                     // Go in direction
                     // Needs to set Active = false, 
                     // if player walks through door.
-
-                    // Leave dungeon
-                    if (playerAction.StartsWith('L') 
-                        || playerAction.StartsWith('l'))
+                    if (playerAction.StartsWith('G') ||
+                        playerAction.StartsWith('g'))
                     {
-                        Active = false;
+                        if (playerAction.ToUpper().Contains("NORTH"))
+                        {
+                            Walls[0].State = State.Active;
+                            playerAction = Ask.WhatToDo(this);
+                        }
+                        else if (playerAction.ToUpper().Contains("EAST"))
+                        {
+                            Walls[1].State = State.Active;
+                            playerAction = Ask.WhatToDo(this);
+                        }
+                        else if (playerAction.ToUpper().Contains("SOUTH"))
+                        {
+                            Walls[2].State = State.Active;
+                            playerAction = Ask.WhatToDo(this);
+                        }
+                        else if (playerAction.ToUpper().Contains("WEST"))
+                        {
+                            Walls[3].State = State.Active;
+                            playerAction = Ask.WhatToDo(this);
+                        }
+                        else
+                        {
+                            Console.WriteLine("No valid direction!\n");
+                        }
+                    }
+
+                    // Open door.
+                    if (playerAction.StartsWith('O') ||
+                        playerAction.StartsWith('o'))
+                    {
+                        // TODO
+                    }
+
+                    // Leave dungeon.
+                    if (playerAction.StartsWith('L') ||
+                        playerAction.StartsWith('l'))
+                    {
+                        foreach (var Wall in Walls)
+                        {
+                            Wall.State = State.Inactive;
+                        }
+                        RoomActive = false;
                         Console.WriteLine(Message.gameOver);
                     }
 
-                    // Search dungeon
-                    if (playerAction.StartsWith('S')
-                        || playerAction.StartsWith('s'))
+                    // Search room.
+                    if (playerAction.StartsWith('S') ||
+                       playerAction.StartsWith('s'))
                     {
                         SearchRoom(player);
                     }
+
+                    // Open Inventory
+                    if (playerAction.StartsWith('I') ||
+                        playerAction.StartsWith('i'))
+                    {
+                        Console.WriteLine();
+                        Program.Inventory(player);
+                    }
                 }
-                while (Active == true);
+                while (RoomActive == true);
             }
         }
 
@@ -121,4 +174,12 @@ namespace TextAdventure;
                 }
             }
         }
+    }
+
+    public class RoomBoundary(WallType type, bool key, string keyName)
+    {
+        public WallType Type {get;} = type;
+        public string? KeyName {get;} = keyName;
+        public bool Key {get;} = key;
+        public State State = State.Inactive;
     }

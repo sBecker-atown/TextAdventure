@@ -35,23 +35,6 @@ namespace TextAdventure;
         }
     }
 
-    class RoomMessage : Message
-    {
-        // Facing a wall.
-        public static string wall = 
-            "You are facing a wall.\n" +
-            "There is no way forward here.\n" + Ask.WhatToDo() + ";\n";
-            
-        // Facing a corridor.
-        public static string corridor = 
-            "You are facing a corridor.\n" + Ask.WhatToDo() + ";\n";
-
-        // Facing a door.
-        public static string door = 
-            "You are facing a door.\n" + Ask.WhatToDo() +
-            ", (O)pen door\n";        
-    }
-
     class FightMessage : Message
     {
         public static string attackBlocked =
@@ -79,15 +62,61 @@ namespace TextAdventure;
 
     class Ask
     {
-        public static string WhatToDo()
-        {
-            // What do you want to do in this Room?
-            string whatToDo =
+        public static string whatToDo =
             "What do you want to do?\n\n" +
             "Open (I)nventory, (G)o (direction),\n" + 
             "(S)earch Room, (L)eave dungeon\n";
+
+        public static string whatToDoPassage =
+            "You are facing an archway.\n" +
+            "Behind the passage you can see the boundaries of " +
+            " the next room.\n\n" +
+            "What do you want to do?\n\n" +
+            "Open (I)nventory, (G)o (direction),\n" +
+            "(S)earch Room, (L)eave dungeon\n";
+
+        public static string whatToDoDoor =
+            "You are facing a door.\n\n" +
+            "What do you want to do?\n\n" +
+            "(O)pen door, Open (I)nventory, (G)o (direction),\n" +
+            "(S)earch Room, (L)eave dungeon\n";
+
+        public static string whatToDoWall =
+            "You are facing a wall.\n" +
+            "There is no way forward here.\n\n" +
+            "What do you want to do?\n\n" +
+            "Open (I)nventory, (G)o (direction),\n" +
+            "(S)earch Room, (L)eave dungeon\n";
             
-            Console.WriteLine(whatToDo);
+        
+        public static string WhatToDo(Room room)
+        {
+            int activeWalls = 0;
+            foreach (var Wall in room.Walls)
+            {
+                if (Wall.State == State.Active)
+                {
+                    if (Wall.Type == WallType.Door)
+                    {
+                        Console.WriteLine(whatToDoDoor);
+                        activeWalls++;
+                    }
+                    else if (Wall.Type == WallType.Wall)
+                    {
+                        Console.WriteLine(whatToDoWall);
+                        activeWalls++;
+                    }
+                    else if (Wall.Type == WallType.Passage)
+                    {
+                        Console.WriteLine(whatToDoPassage);
+                        activeWalls++;
+                    }
+                }
+            }
+            if (activeWalls == 0) 
+            {
+                Console.WriteLine(whatToDo);
+            }
 
             string choice;
             do

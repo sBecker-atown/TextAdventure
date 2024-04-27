@@ -23,15 +23,20 @@
             all.Add(room7);
             all.Add(room8);
         }
+        
         public static Room Room0()
         {
             Room room = new (
                 // Name.
                 "Room 0",
+                // Walls. Clockwise, starting from north.
+                [Create.Wall(), Create.UnlockedDoor(), 
+                 Create.Wall(), Create.Passage()],
                 // Initial Description.
-                "You stand at the entry of a dank crypt, vines are\n" +
-                "growing out of old stone, hanging partly over the " +
-                "entry.\nYou see the following creature guarding " +
+                "You stand at the entry of a dank crypt, vines " +
+                "are\n" + "growing out of old stone, hanging " +
+                "partly over the entry.\n" +
+                "You see the following creature guarding " +
                 "the entrance:\n",
                 // Creature.
                 Birth.Skeleton(),
@@ -42,9 +47,9 @@
                 // Encounter.
                 new Combat(),
                 // Description after fight/after fight
-                "You stand at the entry of a dank crypt, vines are\n" +
-                "growing out of old stone, hanging partly over the " +
-                "entry.\n"
+                "You stand at the entry of a dank crypt, vines " +
+                "are\n" + "growing out of old stone, hanging " +
+                "partly over the entry.\n"
             );
     
             return room;
@@ -55,6 +60,9 @@
             Room room = new (
                 // Name.
                 "Room 1",
+                // Walls.
+                [Create.Wall(), Create.Passage(), 
+                 Create.Wall(), Create.UnlockedDoor()],
                 // Description.
                 "",
                 // Creature.
@@ -78,9 +86,13 @@
             Room room = new (
                 // Name.
                 "Room 2",
+                // Walls.
+                [Create.Wall(), Create.Wall(), 
+                 Create.FlowerDoor(), Create.Passage()],
                 // Description.
-                "You stand at the entry of a dank crypt, vines are\n" +
-                "growing out of old stone, hanging partly over the entry.\n" +
+                "You stand at the entry of a dank crypt, vines " +
+                "are\n" + "growing out of old stone, hanging " +
+                "partly over the entry.\n" +
                 "You see the following creature:\n",
                 // Creature.
                 Birth.Zombie(),
@@ -91,8 +103,9 @@
                 // Encounter.
                 new Combat(),
                 // Description with no fight/after fight
-                "You stand at the entry of a dank crypt, vines are\n" +
-                "growing out of old stone, hanging partly over the entry.\n" +
+                "You stand at the entry of a dank crypt, vines " +
+                "are\n" + "growing out of old stone, hanging " +
+                "partly over the entry.\n" +
                 "You see the following creature:\n"
             );
             return room;
@@ -103,6 +116,9 @@
             Room room = new (
                 // Name.
                 "Room 3",
+                // Walls.
+                [Create.Wall(), Create.SkullDoor(), 
+                 Create.UnlockedDoor(), Create.Wall()],
                 // Description.
                 "",
                 // Creature.
@@ -126,6 +142,9 @@
             Room room = new (
                 // Name.
                 "Room 4",
+                // Walls.
+                [Create.Wall(), Create.Wall(), 
+                 Create.Wall(), Create.SkullDoor()],
                 // Description.
                 "",
                 // Creature.
@@ -149,6 +168,9 @@
             Room room = new (
                 // Name.
                 "Room 5",
+                // Walls.
+                [Create.FlowerDoor(), Create.Wall(), 
+                 Create.UnlockedDoor(), Create.Wall()],
                 // Description.
                 "",
                 // Creature.
@@ -172,6 +194,9 @@
             Room room = new (
                 // Name.
                 "Room 6",
+                // Walls.
+                [Create.UnlockedDoor(), Create.UnlockedDoor(), 
+                 Create.Wall(), Create.Wall()],
                 // Description.
                 "",
                 // Creature.
@@ -195,6 +220,9 @@
             Room room = new (
                 // Name.
                 "Room 7",
+                // Walls.
+                [Create.Wall(), Create.Passage(), 
+                 Create.Wall(), Create.UnlockedDoor()],
                 // Description.
                 "",
                 // Creature.
@@ -218,6 +246,9 @@
             Room room = new (
                 // Name.
                 "Room 8",
+                // Walls.
+                [Create.UnlockedDoor(), Create.Wall(), 
+                 Create.Wall(), Create.Passage()],
                 // Description.
                 "",
                 // Creature.
@@ -240,6 +271,64 @@
     
     public class Create
     {
+        // Walltypes.
+        public static RoomBoundary Wall()
+        {
+            RoomBoundary wallType = new
+            (
+                WallType.Wall,
+                false,
+                ""
+            );
+            return wallType;
+        }
+
+        public static RoomBoundary UnlockedDoor()
+        {
+            RoomBoundary wallType = new
+            (
+                WallType.Door,
+                false,
+                ""
+            );
+            return wallType;
+        }
+
+        public static RoomBoundary SkullDoor()
+        {
+            RoomBoundary wallType = new
+            (
+                WallType.Door,
+                true,
+                "Skull Key"
+            );
+            return wallType;
+        }
+
+        public static RoomBoundary FlowerDoor()
+        {
+            RoomBoundary wallType = new
+            (
+                WallType.Door,
+                true,
+                "Flower Key"
+            );
+            return wallType;
+        }
+
+        public static RoomBoundary Passage()
+        {
+            RoomBoundary wallType = new
+            (
+                WallType.None,
+                false,
+                ""
+            );
+            return wallType;
+        }
+
+
+        // Items.
         public static Item Candle()
         {
             Item candle = new

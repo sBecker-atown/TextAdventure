@@ -56,11 +56,59 @@ Running from a fight will always reset player to Room 0.
     But we might need to reenter a room we already have been to.
     All the Changes would be lost then.
 
-// Rooms need to have a list of enums "RoomBoundaries" and save wall-types
-// inside of that list. List<WallType>[0] ≙ North, List<WallType>[1] ≙ East etc.
-    // How do we track, which door is in this room? 
-    // In specific: How do we check inside a room if we need a special key for
-    // this specific door?
-        // class Door? 
-        // Each door:   bool locked = true or false;
-                        string key = "nameOfKey";
+// TODO 
+    RoomMessage : Message 
+    Messages are not actually working because Ask.WhatToDo returns 
+    string choice and not string whatToDo. 
+    // How do we fix that? 
+        ->  We do 
+            Ask.WtdDoor();
+            Ask.WtdPassage();
+            Ask.WtdWall();
+    // We need to add these.
+
+    // Make Method for Go to direction and opening door.
+
+    // Ask.WhatToDo needs to check where we are (in front of door, etc)
+        and then modify the displayed message. 
+        // Maybe add a state inside of RoomBoundary that tracks, 
+        if the player is in front of this door.
+        AND
+        Link the state with Walls.[this].Type:
+
+        string whatToDo;
+        foreach (Wall in Walls)
+        {
+            if Wall.State == active
+            {
+                if Wall.Type == WallType.Door
+                {
+                    whatToDo = "whatToDo" + 
+                    add door specific options to WhatToDo
+                }
+                else if Wall.Type == WallType.Wall
+                {
+                    whatToDo = "whatToDo" + 
+                    add wall specific options to WhatToDo
+                }
+                else if Wall.Type == WallType.WtdPassage
+                {
+                    whatToDo = "whatToDo" + 
+                    add Passage specific options to WhatToDo
+                }
+            }
+            else 
+            {
+                normal "WhatToDo"
+            }
+        }
+
+        string choice;
+        do
+        {
+            choice = Console.ReadLIne()!;
+        }
+        while (string.IsNullOrEmpty(choice));
+
+        return choice;
+

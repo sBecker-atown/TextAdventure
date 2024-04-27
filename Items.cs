@@ -4,7 +4,8 @@ namespace TextAdventure;
     {
         Healing, Armor, Shield, Ammunition, Weapon, Misc
     }
-    public class Item(int number, ItemCategory category, string name, int atk, int dmg,
+    public class Item(int number, ItemCategory category, 
+    string name, int atk, int dmg,
     int def, bool act)
     {
         public int Amount {get; set;} = number;
@@ -30,7 +31,8 @@ namespace TextAdventure;
                 // Add Healing "Damage" to player HP
                 // but don't go over max player hp. 
                 player.Hp += Damage;
-                Console.WriteLine($"You were healed for {Damage} HP\n");
+                Console.WriteLine($"You were healed for "
+                + "{Damage} HP\n");
                 if (player.Hp > HitPoints.Player)
                 {
                     player.Hp = HitPoints.Player;

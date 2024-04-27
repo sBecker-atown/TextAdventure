@@ -10,7 +10,6 @@ namespace TextAdventure;
             {
                 // Present monster and prompt for player action.
                 Message.CreatureStats(monster);
-                
                 string playerAction = Ask.FightOptions();
 
                 // Check player choice and execute player action.

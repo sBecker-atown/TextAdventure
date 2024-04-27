@@ -95,14 +95,15 @@ namespace TextAdventure;
             }    
         }
 
-        public static void InventoryEquip(Creature player, string action)
+        public static void InventoryEquip(Creature player, 
+        string action)
         {
             var itemExists = false;
             foreach (var Item in player.Inventory)
             {
                 if (action.Contains(Item.Name))
                 {
-                    // Get itemposition in list.
+                    // Get item position in list.
                     var index = player.Inventory.IndexOf(Item);
 
                     // TODO
@@ -118,7 +119,8 @@ namespace TextAdventure;
             }                                
         }
 
-        public static void InventoryUnequip(Creature player, string action)
+        public static void InventoryUnequip(Creature player, 
+        string action)
         {
             var itemExists = false;
             foreach (var Item in player.Inventory)
@@ -136,26 +138,29 @@ namespace TextAdventure;
             }                
         }
 
-        public static void AddToInventory(Creature player, Room room, string action)
+        public static void AddToInventory(Creature player, 
+        Room room, string action)
         {
             var itemExists = false;
             foreach (var Item in room.Loot)
             {
                 if (action.Contains(Item.Name))
                 {
-                    // Check if Item already exists and if so increase amount
-                    // Else add item to inventory and remove item from list 
-                    // of loot in this room.
+                    // Check if Item already exists and if so 
+                    // increase amount. Else add item to inventory 
+                    // and remove item from list of loot in this room.
                     var playerHasItem = false;
                     for (int i = 0; i < player.Inventory.Count; i++)
                     {
-                        if (string.Compare(action, player.Inventory[i].Name) == 0)
+                        if (string.Compare(action, 
+                        player.Inventory[i].Name) == 0)
                         {
                             player.Inventory[i].Amount++;
                             playerHasItem = true;
                             itemExists = true;
                             room.Loot.Remove(Item);
-                            Console.WriteLine($"{Item.Name} added to inventory\n");
+                            Console.WriteLine($"{Item.Name} added" +
+                            " to inventory\n");
                             return;
                         }
                     }
@@ -165,7 +170,8 @@ namespace TextAdventure;
                         playerHasItem = true;
                         itemExists = true;
                         room.Loot.Remove(Item);
-                        Console.WriteLine($"{Item.Name} added to inventory\n");
+                        Console.WriteLine($"{Item.Name} added to" +
+                        " inventory\n");
                         return;
                     }       
                 }
