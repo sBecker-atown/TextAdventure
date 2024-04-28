@@ -9,7 +9,7 @@ namespace TextAdventure;
 
     public enum State
     {
-        Active, Inactive, Open, Closed
+        Active, Inactive, Open, Closed, NotVisited, CurrentLocation, Locked, Unlocked
     }
 
     public class Room(string name, List<RoomBoundary> walls, 
@@ -89,22 +89,22 @@ namespace TextAdventure;
                     {
                         if (playerAction.ToUpper().Contains("NORTH"))
                         {
-                            Walls[0].State = State.Active;
+                            Walls[0].AtLocation = true;
                             playerAction = Ask.WhatToDo(this);
                         }
                         else if (playerAction.ToUpper().Contains("EAST"))
                         {
-                            Walls[1].State = State.Active;
+                            Walls[1].AtLocation = true;
                             playerAction = Ask.WhatToDo(this);
                         }
                         else if (playerAction.ToUpper().Contains("SOUTH"))
                         {
-                            Walls[2].State = State.Active;
+                            Walls[2].AtLocation = true;
                             playerAction = Ask.WhatToDo(this);
                         }
                         else if (playerAction.ToUpper().Contains("WEST"))
                         {
-                            Walls[3].State = State.Active;
+                            Walls[3].AtLocation = true;
                             playerAction = Ask.WhatToDo(this);
                         }
                         else
@@ -118,6 +118,7 @@ namespace TextAdventure;
                         playerAction.StartsWith('o'))
                     {
                         // TODO
+                        OpenDoor(player);
                     }
 
                     // Leave dungeon.
@@ -126,7 +127,7 @@ namespace TextAdventure;
                     {
                         foreach (var Wall in Walls)
                         {
-                            Wall.State = State.Inactive;
+                            Wall.AtLocation = false;
                         }
                         RoomActive = false;
                         Console.WriteLine(Message.gameOver);
@@ -146,8 +147,62 @@ namespace TextAdventure;
                         Console.WriteLine();
                         Program.Inventory(player);
                     }
+
+                    // Exit Room
+                    if (playerAction.StartsWith('E') ||
+                        playerAction.StartsWith('e'))
+                    {
+                        int nextRoom = AllRooms.IndexOf(this);
+                        foreach (var Wall in Walls)
+                        {
+                            if (Wall.AtLocation && 
+                                Wall.State == State.Open)
+                            {
+                                nextRoom = Wall.NextRoom;
+                            }
+                        }
+                        RoomActive = false;
+                        AllRooms[nextRoom].EnterRoom(player, AllRooms);
+                    }
                 }
                 while (RoomActive == true);
+            }
+        }
+
+        public void OpenDoor(Creature player)
+        {
+            var playerHasKey = false;
+
+            // Check if Door needs Key.
+            foreach (var Wall in Walls)
+            {
+                if (Wall.AtLocation && Wall.NeedsKey)
+                {
+                    // Check if player has Key.
+                    foreach (var Item in player.Inventory)
+                    {
+                        if (Item.Name == Wall.KeyName)
+                        {
+                            playerHasKey = true;
+                        }
+                    }
+                }
+                if (playerHasKey || !Wall.NeedsKey && 
+                Wall.Type == WallType.Door)
+                {
+                    // Open Door.
+                    Wall.State = State.Open;
+                    Console.WriteLine("You open the door.");
+                }
+                else if (!playerHasKey && Wall.NeedsKey)
+                {
+                    Console.WriteLine("You don't have " +
+                    "the Key for that.");
+                }
+                else if (!playerHasKey && !Wall.NeedsKey)
+                {
+                    Console.WriteLine("You can't do that.");
+                }
             }
         }
 
@@ -176,10 +231,18 @@ namespace TextAdventure;
         }
     }
 
-    public class RoomBoundary(WallType type, bool key, string keyName)
+
+    // This needs to be a door, not a wall. 
+    // Each door needs to have a direction and a NextRoom behind it.
+    // Then we can say, if door: look at direction, and know which room
+    // is in that direction.
+    public class RoomBoundary(WallType type, bool location, 
+    bool key, string keyName, State state, int indexOfRoom)
     {
         public WallType Type {get;} = type;
         public string? KeyName {get;} = keyName;
-        public bool Key {get;} = key;
-        public State State = State.Inactive;
+        public bool NeedsKey {get;} = key;
+        public bool AtLocation {get; set;} = location;
+        public State State = state;
+        public int NextRoom {get;} = indexOfRoom;
     }

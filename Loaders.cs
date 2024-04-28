@@ -278,7 +278,10 @@
             (
                 WallType.Wall,
                 false,
-                ""
+                false,
+                "",
+                State.Locked,
+                0
             );
             return wallType;
         }
@@ -289,7 +292,9 @@
             (
                 WallType.Door,
                 false,
-                ""
+                false,
+                "",
+                State.Unlocked
             );
             return wallType;
         }
@@ -299,8 +304,10 @@
             RoomBoundary wallType = new
             (
                 WallType.Door,
+                false,
                 true,
-                "Skull Key"
+                "Skull Key",
+                State.Locked
             );
             return wallType;
         }
@@ -310,8 +317,10 @@
             RoomBoundary wallType = new
             (
                 WallType.Door,
+                false,
                 true,
-                "Flower Key"
+                "Flower Key",
+                State.Locked
             );
             return wallType;
         }
@@ -322,7 +331,9 @@
             (
                 WallType.None,
                 false,
-                ""
+                false,
+                "",
+                State.Open
             );
             return wallType;
         }

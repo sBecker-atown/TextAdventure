@@ -94,7 +94,7 @@ namespace TextAdventure;
             int activeWalls = 0;
             foreach (var Wall in room.Walls)
             {
-                if (Wall.State == State.Active)
+                if (Wall.State == State.CurrentLocation)
                 {
                     if (Wall.Type == WallType.Door)
                     {
