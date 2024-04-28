@@ -232,10 +232,18 @@ namespace TextAdventure;
     }
 
 
-    // This needs to be a door, not a wall. 
+    // This needs to have a subclass : Door. 
     // Each door needs to have a direction and a NextRoom behind it.
-    // Then we can say, if door: look at direction, and know which room
-    // is in that direction.
+    // Then we can say, if door: look at direction, and know which 
+    // room is in that direction.
+    // We can then simplify the doors and remove the Create.Door
+    // method and create each door locally in the room. 
+    // Normal Walls then don't need a key and all the other 
+    //door specific stuff.
+    
+    // Do we need a new list for that, or can a list contain 
+    //classes and subclasses mixed???
+
     public class RoomBoundary(WallType type, bool location, 
     bool key, string keyName, State state, int indexOfRoom)
     {
