@@ -84,27 +84,26 @@ namespace TextAdventure;
                     // Go in direction
                     // Needs to set Active = false, 
                     // if player walks through door.
-                    if (playerAction.StartsWith('G') ||
-                        playerAction.StartsWith('g'))
+                    if (InputAnalysis.WantsToGoTo(playerAction))
                     {
                         if (playerAction.ToUpper().Contains("NORTH"))
                         {
-                            Walls[0].AtLocation = true;
+                            Walls[0].PlayerLocation = true;
                             playerAction = Ask.WhatToDo(this);
                         }
                         else if (playerAction.ToUpper().Contains("EAST"))
                         {
-                            Walls[1].AtLocation = true;
+                            Walls[1].PlayerLocation = true;
                             playerAction = Ask.WhatToDo(this);
                         }
                         else if (playerAction.ToUpper().Contains("SOUTH"))
                         {
-                            Walls[2].AtLocation = true;
+                            Walls[2].PlayerLocation = true;
                             playerAction = Ask.WhatToDo(this);
                         }
                         else if (playerAction.ToUpper().Contains("WEST"))
                         {
-                            Walls[3].AtLocation = true;
+                            Walls[3].PlayerLocation = true;
                             playerAction = Ask.WhatToDo(this);
                         }
                         else
@@ -114,48 +113,42 @@ namespace TextAdventure;
                     }
 
                     // Open door.
-                    if (playerAction.StartsWith('O') ||
-                        playerAction.StartsWith('o'))
+                    if (InputAnalysis.WantsToOpen(playerAction))
                     {
-                        // TODO
                         OpenDoor(player);
                     }
 
                     // Leave dungeon.
-                    if (playerAction.StartsWith('L') ||
-                        playerAction.StartsWith('l'))
+                    if (InputAnalysis.WantsToLeave(playerAction))
                     {
                         foreach (var Wall in Walls)
                         {
-                            Wall.AtLocation = false;
+                            Wall.PlayerLocation = false;
                         }
                         RoomActive = false;
                         Console.WriteLine(Message.gameOver);
                     }
 
                     // Search room.
-                    if (playerAction.StartsWith('S') ||
-                       playerAction.StartsWith('s'))
+                    if (InputAnalysis.WantsToSearch(playerAction))
                     {
                         SearchRoom(player);
                     }
 
                     // Open Inventory
-                    if (playerAction.StartsWith('I') ||
-                        playerAction.StartsWith('i'))
+                    if (InputAnalysis.WantsToOpenInventory(playerAction))
                     {
                         Console.WriteLine();
-                        Program.Inventory(player);
+                        player.OpenInventory();
                     }
 
                     // Exit Room
-                    if (playerAction.StartsWith('E') ||
-                        playerAction.StartsWith('e'))
+                    if (InputAnalysis.WantsToExit(playerAction))
                     {
                         int nextRoom = AllRooms.IndexOf(this);
                         foreach (var Wall in Walls)
                         {
-                            if (Wall.AtLocation && 
+                            if (Wall.PlayerLocation && 
                                 Wall.State == State.Open)
                             {
                                 nextRoom = Wall.NextRoom;
@@ -176,12 +169,12 @@ namespace TextAdventure;
             // Check if Door needs Key.
             foreach (var Wall in Walls)
             {
-                if (Wall.AtLocation && Wall.NeedsKey)
+                if (Wall.PlayerLocation && Wall.NeedsKey)
                 {
                     // Check if player has Key.
                     foreach (var Item in player.Inventory)
                     {
-                        if (Item.Name == Wall.KeyName)
+                        if (Item.ID == Wall.KeyID)
                         {
                             playerHasKey = true;
                         }
@@ -223,9 +216,13 @@ namespace TextAdventure;
                 Console.WriteLine();
                 string playerAction = Ask.LootOptions();
 
-                if (playerAction.StartsWith('p') || playerAction.StartsWith('P'))
+                if (InputAnalysis.WantsToPickUp(playerAction))
                 {
-                    Program.AddToInventory(player, this, playerAction);
+                    player.AddToInventory(this, playerAction);
+                }
+                if (InputAnalysis.WantsToStopLooting(playerAction))
+                {
+                    return;
                 }
             }
         }
@@ -239,18 +236,19 @@ namespace TextAdventure;
     // We can then simplify the doors and remove the Create.Door
     // method and create each door locally in the room. 
     // Normal Walls then don't need a key and all the other 
-    //door specific stuff.
+    // door specific stuff.
     
     // Do we need a new list for that, or can a list contain 
-    //classes and subclasses mixed???
+    // classes and subclasses mixed???
 
     public class RoomBoundary(WallType type, bool location, 
-    bool key, string keyName, State state, int indexOfRoom)
+    bool key, int keyID, string keyName, State state, int indexOfRoom)
     {
         public WallType Type {get;} = type;
         public string? KeyName {get;} = keyName;
         public bool NeedsKey {get;} = key;
-        public bool AtLocation {get; set;} = location;
+        public int KeyID {get;} = keyID;
+        public bool PlayerLocation {get; set;} = location;
         public State State = state;
         public int NextRoom {get;} = indexOfRoom;
     }

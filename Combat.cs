@@ -15,14 +15,10 @@ namespace TextAdventure;
                 // Check player choice and execute player action.
                 
                 // Player wants to attack: 
-                if (playerAction.StartsWith('A') || playerAction.StartsWith('a'))
+                if (InputAnalysis.WantsToAttack(playerAction))
                 {
                     // Player attacks
                     monster.Hp = PlayerAttack(player, monster);
-
-                    // Wait for enter, cause programm would be 
-                    // too fast.
-                    Console.ReadLine();
 
                     // Check if Monster is Dead and do appropriate
                     // actions. If monster alive, monster attacks.
@@ -45,18 +41,16 @@ namespace TextAdventure;
                     }
                 }
                 // Player wants to run:
-                else if (playerAction.StartsWith('R') || 
-                        playerAction.StartsWith('r'))
+                else if (InputAnalysis.WantsToRun(playerAction))
                 {
                     Console.WriteLine("\nYou run away.\n");
                     AllRooms[0].EnterRoom(player, AllRooms);
                 }
                 // Player wants to open Inventory
-                else if (playerAction.StartsWith('I') ||
-                        playerAction.StartsWith('i'))
+                else if (InputAnalysis.WantsToOpenInventory(playerAction))
                 {
                     Console.WriteLine();
-                    Program.Inventory(player);
+                    player.OpenInventory();
                 }
             }
             while (player.Hp > 0 && monster.Hp > 0);
@@ -94,29 +88,5 @@ namespace TextAdventure;
             }
             return player.Hp;
         }
-
-        // Checks if player survives 
-        // (returns true if player wins fight)
-        // Currently unused.
-        /* 
-        public bool CheckWinner
-        (Creature player, Creature monster)
-        {
-            if (monster.Hp <= 0)
-            {
-                FightMessage.CreatureDeath(monster);
-                return true;
-            }    
-            else if (player.Hp <= 0)
-            {
-                Console.Write(Message.dead);
-                return false;
-            }
-            else 
-            {
-                return true;
-            }
-        }        
-        */
     }
     

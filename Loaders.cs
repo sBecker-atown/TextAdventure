@@ -279,6 +279,7 @@
                 WallType.Wall,
                 false,
                 false,
+                000,
                 "",
                 State.Locked,
                 0
@@ -293,8 +294,10 @@
                 WallType.Door,
                 false,
                 false,
+                000,
                 "",
-                State.Unlocked
+                State.Unlocked,
+                0
             );
             return wallType;
         }
@@ -306,8 +309,10 @@
                 WallType.Door,
                 false,
                 true,
+                002,
                 "Skull Key",
-                State.Locked
+                State.Locked,
+                0
             );
             return wallType;
         }
@@ -319,8 +324,10 @@
                 WallType.Door,
                 false,
                 true,
+                003,
                 "Flower Key",
-                State.Locked
+                State.Locked,
+                0
             );
             return wallType;
         }
@@ -332,8 +339,10 @@
                 WallType.None,
                 false,
                 false,
+                000,
                 "",
-                State.Open
+                State.Open,
+                0
             );
             return wallType;
         }
@@ -344,6 +353,7 @@
         {
             Item candle = new
             (
+                001,
                 1, 
                 ItemCategory.Misc,
                 "Candle", 
@@ -359,6 +369,7 @@
         {
             Item skullKey = new
             (
+                002,
                 1, 
                 ItemCategory.Misc,
                 "Skull Key", 
@@ -374,6 +385,7 @@
         {
             Item flowerKey = new
             (
+                003,
                 1, 
                 ItemCategory.Misc,
                 "Flower Key", 
@@ -389,6 +401,7 @@
         {
             Item healingPotion = new
             (
+                004,
                 1,
                 ItemCategory.Healing,
                 "Healing Potion",
@@ -404,6 +417,7 @@
         {
             Item leatherArmor = new
             (
+                005,
                 1, 
                 ItemCategory.Armor,
                 "Leather Armor", 
@@ -419,6 +433,7 @@
         {
             Item chainMail = new
             (
+                006,
                 1, 
                 ItemCategory.Armor,
                 "Chain Mail", 
@@ -434,6 +449,7 @@
         {
             Item shield = new
             (
+                007,
                 1, 
                 ItemCategory.Shield,
                 "Shield", 
@@ -449,6 +465,7 @@
         {
             Item arrow = new
             (
+                008,
                 1, 
                 ItemCategory.Ammunition,
                 "Arrow", 
@@ -464,6 +481,7 @@
         {
             Item axe = new
             (
+                009,
                 1, 
                 ItemCategory.Weapon,
                 "Battle Axe", 
@@ -479,6 +497,7 @@
         {
             Item bow = new
             (
+                010,
                 1, 
                 ItemCategory.Weapon,
                 "Longbow", 
@@ -494,6 +513,7 @@
         {
             Item longsword = new
             (
+                011,
                 1, 
                 ItemCategory.Weapon,
                 "Longsword", 
@@ -541,7 +561,7 @@
         return skeleton;
         }
 
-         public static Creature Zombie()
+        public static Creature Zombie()
         {
             Creature zombie = new
             (
@@ -555,7 +575,7 @@
         return zombie;
         }
 
-         public static Creature Mummy()
+        public static Creature Mummy()
         {
             Creature mummy = new
             (
@@ -569,7 +589,7 @@
         return mummy;
         }
 
-         public static Creature Lich()
+        public static Creature Lich()
         {
             Creature lich = new
             (
