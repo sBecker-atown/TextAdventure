@@ -48,24 +48,26 @@ Running from a fight will always reset player to Room 0.
 // We can then use a simple if statement that checks agains "Room.Active"
 // and then does the "AllRooms[x].EnterRoom()" function.
 
-// Why is LoadRoomX a static? 
-    Because, we want a new room each time.
-    We could instead use a non static function and create one room in main,
-    which we then modify by calling LoadRoomX. Butthat would result in the
-    same room getting overwritten. 
-    But we might need to reenter a room we already have been to.
-    All the Changes would be lost then.
-
 // New TODO
     // Make a subclass "Actions" for all possible Actions
         Methodtype: void
         Arguments:  playerAction, Walls, player
         Naming:     Action.GoTo, Action.OpenDoor, Action.SearchRoom
-    // Make a class "InputAnalysis" for checking player inputs
-        Methodtype: boolean
-        Naming:     WantsToGoTo, WantsToOpen, WantsToSearch, 
-        Check:      Check if specific word is in player action.
 
     // Add boolean to objects: "Can be opened" -> check in Action.Open 
        and exit Action.Open Method if object can't be opened.
 
+    // RoomBoundary: 
+    /* KeyID maps to which door is this.
+       NextRoom maps to which room is behind this door.
+            If KeyID is not null and NextRoom is not null. 
+                This is a locked door, room behind is NextRoom.
+            If KeyID is null and NextRoom is not null.  
+                This is an open door, room behind is NextRoom.
+            If KeyID is null and NextRoom is null.
+                This is a wall.
+
+    // Messages don't need to be a method. 
+        // Use Console.WriteLine(String.Format(stringName, variableContentName));
+
+    // WhatToDo needs to be made anew. 

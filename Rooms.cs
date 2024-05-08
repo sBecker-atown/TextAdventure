@@ -12,33 +12,40 @@ namespace TextAdventure;
         Active, Inactive, Open, Closed, NotVisited, CurrentLocation, Locked, Unlocked
     }
 
-    public class Room(string name, List<RoomBoundary> walls, 
-                     string description, Creature monster, 
-                     List<Item> loot, bool active,
-                     Combat fight, string descriptionNoFight)
+    public class Room
     {
-        // Name of the room.
-        public string Name {get; set;} = name;
+        public Room(string name, string description, Creature monster, List<Item> loot, bool active,
+                    Combat fight, string descriptionNoFight, Dictionary<Direction, RoomBoundary> connections)
+        {
+            Name = name;
+            Description = description;
+            Monster = monster;
+            Loot = loot;
+            RoomActive = active;
+            Encounter = fight;
+            DescriptionNoFight = descriptionNoFight;
+            RoomConnections = connections;
+        }
 
-        // Walls of the room.
-        public List<RoomBoundary> Walls {get;} = walls;
+        // Name of the room.
+        public string Name {get; set;}
     
         // Initial desctiption of the room.
-        public string Description {get;} = description;
+        public string Description {get;}
     
         // Monster in the room.
-        public Creature Monster {get; set;} = monster;
+        public Creature Monster {get; set;}
     
         // List of available loot in the room.
-        public List<Item> Loot {get; set;} = loot;
+        public List<Item> Loot {get; set;}
     
         // Determines if player is currently in this room.
-        public bool RoomActive {get; set;} = active;
+        public bool RoomActive {get; set;}
     
         // Instantiates the combat functionality. 
-        public Combat Encounter {get; set;} = fight;
-        public string DescriptionNoFight {get;} 
-                      = descriptionNoFight;
+        public Combat Encounter {get; set;}
+        public string DescriptionNoFight {get;}
+        public Dictionary<Direction, RoomBoundary> RoomConnections;
     
     
         // FUNCTIONS a room can use:
@@ -46,7 +53,7 @@ namespace TextAdventure;
         // Displays the Rooms description to the player.
         // Initial if Monster is still alive, AfterFight
         // if monster is dead or no monster is in this room.
-        public void PresentRoom()
+        private void PresentRoom()
         {
             switch (Monster.IsDead)
             {
@@ -74,14 +81,14 @@ namespace TextAdventure;
             {
                 return;
             }
-            
+
             PresentRoom();
             // Ask player what to do till player 
             // leaves this room or the dungeon.
             do 
             {
                 // Ask player what to do. 
-                string playerAction = Ask.WhatToDo(this);
+                string playerAction = Gameworld.WhatToDo(this);
 
                 // TODO
                 // Go in direction
@@ -92,22 +99,22 @@ namespace TextAdventure;
                     if (playerAction.ToUpper().Contains("NORTH"))
                     {
                         Walls[0].PlayerLocation = true;
-                        playerAction = Ask.WhatToDo(this);
+                        playerAction = Gameworld.WhatToDo(this);
                     }
                     else if (playerAction.ToUpper().Contains("EAST"))
                     {
                         Walls[1].PlayerLocation = true;
-                        playerAction = Ask.WhatToDo(this);
+                        playerAction = Gameworld.WhatToDo(this);
                     }
                     else if (playerAction.ToUpper().Contains("SOUTH"))
                     {
                         Walls[2].PlayerLocation = true;
-                        playerAction = Ask.WhatToDo(this);
+                        playerAction = Gameworld.WhatToDo(this);
                     }
                     else if (playerAction.ToUpper().Contains("WEST"))
                     {
                         Walls[3].PlayerLocation = true;
-                        playerAction = Ask.WhatToDo(this);
+                        playerAction = Gameworld.WhatToDo(this);
                     }
                     else
                     {
@@ -164,7 +171,7 @@ namespace TextAdventure;
             while (RoomActive == true);
         }
 
-        public void OpenDoor(Creature player)
+        private void OpenDoor(Creature player)
         {
             var playerHasKey = false;
 
@@ -201,7 +208,7 @@ namespace TextAdventure;
             }
         }
 
-        public void SearchRoom(Creature player)
+        private void SearchRoom(Creature player)
         {
             if (Loot.Count == 0)
             {
@@ -243,14 +250,8 @@ namespace TextAdventure;
     // Do we need a new list for that, or can a list contain 
     // classes and subclasses mixed???
 
-    public class RoomBoundary(WallType type, bool location, 
-    bool key, int keyID, string keyName, State state, int indexOfRoom)
+    public class RoomBoundary(int keyID, int indexOfRoom)
     {
-        public WallType Type {get;} = type;
-        public string? KeyName {get;} = keyName;
-        public bool NeedsKey {get;} = key;
-        public int KeyID {get;} = keyID;
-        public bool PlayerLocation {get; set;} = location;
-        public State State = state;
-        public int NextRoom {get;} = indexOfRoom;
+        public int? KeyID {get;} = keyID;
+        public int? NextRoom {get;} = indexOfRoom;
     }

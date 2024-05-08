@@ -91,46 +91,6 @@ namespace TextAdventure;
             "What do you want to do?\n\n" +
             "Open (I)nventory, (G)o (direction),\n" +
             "(S)earch Room, (L)eave dungeon\n";
-            
-        
-        public static string WhatToDo(Room room)
-        {
-            int activeWalls = 0;
-            foreach (var Wall in room.Walls)
-            {
-                if (Wall.State == State.CurrentLocation)
-                {
-                    if (Wall.Type == WallType.Door)
-                    {
-                        Console.WriteLine(whatToDoDoor);
-                        activeWalls++;
-                    }
-                    else if (Wall.Type == WallType.Wall)
-                    {
-                        Console.WriteLine(whatToDoWall);
-                        activeWalls++;
-                    }
-                    else if (Wall.Type == WallType.Passage)
-                    {
-                        Console.WriteLine(whatToDoPassage);
-                        activeWalls++;
-                    }
-                }
-            }
-            if (activeWalls == 0) 
-            {
-                Console.WriteLine(whatToDo);
-            }
-
-            string choice;
-            do
-            {
-                choice = Console.ReadLine()!;
-            }
-            while (string.IsNullOrEmpty(choice));
-            
-            return choice;
-        }
 
         public static string InventoryOptions()
         {

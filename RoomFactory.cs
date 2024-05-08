@@ -5,8 +5,6 @@ public class RoomFactory
     private readonly Room _room0 = new (
         // Name.
         "Room 0",
-        // Walls. Clockwise, starting from north.
-        new List<RoomBoundary> {Create.Wall(), Create.UnlockedDoor(), Create.Wall(), Create.Passage()},
         // Initial Description.
         "You stand at the entry of a dank crypt, vines " +
         "are\n" + "growing out of old stone, hanging " +
@@ -25,6 +23,8 @@ public class RoomFactory
         "You stand at the entry of a dank crypt, vines " +
         "are\n" + "growing out of old stone, hanging " +
         "partly over the entry.\n"
+        // Walls. Clockwise, starting from north.
+        new Dictionary<Direction, RoomBoundary> {Create.Wall(), Create.UnlockedDoor(), Create.Wall(), Create.Passage()},
     );
 
     private readonly Room _room1 = new (
@@ -188,9 +188,6 @@ public class RoomFactory
     private readonly Room _room8 = new (
         // Name.
         "Room 8",
-        // Walls.
-        [Create.UnlockedDoor(), Create.Wall(), 
-         Create.Wall(), Create.Passage()],
         // Description.
         "",
         // Creature.
@@ -204,7 +201,10 @@ public class RoomFactory
         // Description with no fight/after fight
         "You stand at the entry of a dank crypt, vines are\n" +
         "growing out of old stone, hanging partly over the entry.\n" +
-        "You see the following creature:\n"
+        "You see the following creature:\n",
+        // Walls.
+        [Create.UnlockedDoor(), Create.Wall(), 
+         Create.Wall(), Create.Passage()]
     );
 
     public List<Room> CreateRooms()
