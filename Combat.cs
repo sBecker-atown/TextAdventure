@@ -18,24 +18,27 @@ namespace TextAdventure;
                 if (InputAnalysis.WantsToAttack(playerAction))
                 {
                     // Player attacks
-                    monster.Hp = PlayerAttack(player, monster);
+                    monster.TakeDamage(player);
+
+                    Thread.Sleep(300);
 
                     // Check if Monster is Dead and do appropriate
                     // actions. If monster alive, monster attacks.
                     // If monster dead, report death to player.
-                    if (!monster.Dead())
+                    if (!monster.IsDead)
                     {
-                        player.Hp = MonsterAttack(player, monster);
+                        FightMessage.CreatureAttack(monster);
+                        player.TakeDamage(monster);
                         
                         // Check if player is alive. If not, display 
                         // Game Over Message.
-                        if (player.Dead())
+                        if (player.IsDead)
                         {
                             Console.WriteLine(Message.dead);
                             break;
                         }
                     }
-                    else if (monster.Dead())
+                    else if (monster.IsDead)
                     {
                         FightMessage.CreatureDeath(monster);
                     }
@@ -54,39 +57,6 @@ namespace TextAdventure;
                 }
             }
             while (player.Hp > 0 && monster.Hp > 0);
-        }
-
-        // Player attacks monster.
-        public int PlayerAttack
-        (Creature player, Creature monster)
-        {
-            if (player.Attack >= monster.Defense) 
-            {
-                monster.Hp -= player.Damage;
-                FightMessage.CreatureHit(player, monster);
-            }
-            else if (player.Attack < monster.Defense)
-            {
-                Console.Write(FightMessage.attackBlocked);
-            }
-            return monster.Hp;
-        }
-
-        // Monster attacks player.
-        public int MonsterAttack
-        (Creature player, Creature monster)
-        {
-            Console.WriteLine($"{monster.CreatureName} attacks!\n");
-            if (monster.Attack >= player.Defense) 
-            {
-                player.Hp -= monster.Damage;
-                FightMessage.PlayerHit(monster);
-            }
-            else if (monster.Attack < player.Defense)
-            {
-                Console.Write(FightMessage.attackBlocked);
-            }
-            return player.Hp;
         }
     }
     

@@ -48,7 +48,7 @@ namespace TextAdventure;
         // if monster is dead or no monster is in this room.
         public void PresentRoom()
         {
-            switch (Monster.Dead())
+            switch (Monster.IsDead)
             {
                 case false:
                     Console.WriteLine(Description);
@@ -65,101 +65,103 @@ namespace TextAdventure;
         public void EnterRoom(Creature player, List<Room> AllRooms)
         {
             RoomActive = true;
-            if (!Monster.Dead())
+            if (!Monster.IsDead)
             {
                 PresentRoom();
                 Encounter.Fight(player, Monster, AllRooms);
             }
-            if (!player.Dead())
+            if (player.IsDead)
             {
-                PresentRoom();
-                // Ask player what to do till player 
-                // leaves this room or the dungeon.
-                do 
+                return;
+            }
+            
+            PresentRoom();
+            // Ask player what to do till player 
+            // leaves this room or the dungeon.
+            do 
+            {
+                // Ask player what to do. 
+                string playerAction = Ask.WhatToDo(this);
+
+                // TODO
+                // Go in direction
+                // Needs to set Active = false, 
+                // if player walks through door.
+                if (InputAnalysis.WantsToGoTo(playerAction))
                 {
-                    // Ask player what to do. 
-                    string playerAction = Ask.WhatToDo(this);
-
-                    // TODO
-                    // Go in direction
-                    // Needs to set Active = false, 
-                    // if player walks through door.
-                    if (InputAnalysis.WantsToGoTo(playerAction))
+                    if (playerAction.ToUpper().Contains("NORTH"))
                     {
-                        if (playerAction.ToUpper().Contains("NORTH"))
-                        {
-                            Walls[0].PlayerLocation = true;
-                            playerAction = Ask.WhatToDo(this);
-                        }
-                        else if (playerAction.ToUpper().Contains("EAST"))
-                        {
-                            Walls[1].PlayerLocation = true;
-                            playerAction = Ask.WhatToDo(this);
-                        }
-                        else if (playerAction.ToUpper().Contains("SOUTH"))
-                        {
-                            Walls[2].PlayerLocation = true;
-                            playerAction = Ask.WhatToDo(this);
-                        }
-                        else if (playerAction.ToUpper().Contains("WEST"))
-                        {
-                            Walls[3].PlayerLocation = true;
-                            playerAction = Ask.WhatToDo(this);
-                        }
-                        else
-                        {
-                            Console.WriteLine("No valid direction!\n");
-                        }
+                        Walls[0].PlayerLocation = true;
+                        playerAction = Ask.WhatToDo(this);
                     }
-
-                    // Open door.
-                    if (InputAnalysis.WantsToOpen(playerAction))
+                    else if (playerAction.ToUpper().Contains("EAST"))
                     {
-                        OpenDoor(player);
+                        Walls[1].PlayerLocation = true;
+                        playerAction = Ask.WhatToDo(this);
                     }
-
-                    // Leave dungeon.
-                    if (InputAnalysis.WantsToLeave(playerAction))
+                    else if (playerAction.ToUpper().Contains("SOUTH"))
                     {
-                        foreach (var Wall in Walls)
-                        {
-                            Wall.PlayerLocation = false;
-                        }
-                        RoomActive = false;
-                        Console.WriteLine(Message.gameOver);
+                        Walls[2].PlayerLocation = true;
+                        playerAction = Ask.WhatToDo(this);
                     }
-
-                    // Search room.
-                    if (InputAnalysis.WantsToSearch(playerAction))
+                    else if (playerAction.ToUpper().Contains("WEST"))
                     {
-                        SearchRoom(player);
+                        Walls[3].PlayerLocation = true;
+                        playerAction = Ask.WhatToDo(this);
                     }
-
-                    // Open Inventory
-                    if (InputAnalysis.WantsToOpenInventory(playerAction))
+                    else
                     {
-                        Console.WriteLine();
-                        player.OpenInventory();
-                    }
-
-                    // Exit Room
-                    if (InputAnalysis.WantsToExit(playerAction))
-                    {
-                        int nextRoom = AllRooms.IndexOf(this);
-                        foreach (var Wall in Walls)
-                        {
-                            if (Wall.PlayerLocation && 
-                                Wall.State == State.Open)
-                            {
-                                nextRoom = Wall.NextRoom;
-                            }
-                        }
-                        RoomActive = false;
-                        AllRooms[nextRoom].EnterRoom(player, AllRooms);
+                        Console.WriteLine("No valid direction!\n");
                     }
                 }
-                while (RoomActive == true);
+
+                // Open door.
+                if (InputAnalysis.WantsToOpen(playerAction))
+                {
+                    OpenDoor(player);
+                }
+
+                // Leave dungeon.
+                if (InputAnalysis.WantsToLeave(playerAction))
+                {
+                    foreach (var Wall in Walls)
+                    {
+                        Wall.PlayerLocation = false;
+                    }
+                    RoomActive = false;
+                    Console.WriteLine(Message.gameOver);
+                }
+
+                // Search room.
+                if (InputAnalysis.WantsToSearch(playerAction))
+                {
+                    SearchRoom(player);
+                }
+
+                // Open Inventory
+                if (InputAnalysis.WantsToOpenInventory(playerAction))
+                {
+                    Console.WriteLine();
+                    player.OpenInventory();
+                }
+
+                // Exit Room
+                if (InputAnalysis.WantsToExit(playerAction))
+                {
+                    int nextRoom = AllRooms.IndexOf(this);
+                    foreach (var Wall in Walls)
+                    {
+                        if (Wall.PlayerLocation && 
+                            Wall.State == State.Open)
+                        {
+                            nextRoom = Wall.NextRoom;
+                        }
+                    }
+                    RoomActive = false;
+                    AllRooms[nextRoom].EnterRoom(player, AllRooms);
+                }
             }
+            while (RoomActive == true);
         }
 
         public void OpenDoor(Creature player)

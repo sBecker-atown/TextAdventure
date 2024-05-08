@@ -5,11 +5,11 @@ class InputAnalysis
     // Checks if the player...
     public static bool WantsToGoTo(string choice)
     {
-        if (choice.ToUpper().StartsWith('G'))
+        if (choice.Equals("G", StringComparison.OrdinalIgnoreCase))
         {
             return true;
         }
-        else if (choice.ToUpper().Contains("GO"))
+        else if (choice.Equals("GO", StringComparison.OrdinalIgnoreCase))
         {
             return true;
         }
@@ -21,11 +21,11 @@ class InputAnalysis
 
     public static bool WantsToOpen(string choice)
     {
-        if (choice.ToUpper().StartsWith('O'))
+        if (choice.Equals("O", StringComparison.OrdinalIgnoreCase))
         {
             return true;
         }
-        else if (choice.ToUpper().Contains("OPEN"))
+        else if (choice.Equals("Open", StringComparison.OrdinalIgnoreCase))
         {
             return true;
         }
@@ -37,27 +37,17 @@ class InputAnalysis
 
     public static bool WantsToSearch(string choice)
     {
-        if (choice.ToUpper().StartsWith('S'))
-        {
-            return true;
-        }
-        else if (choice.ToUpper().Contains("SEARCH"))
-        {
-            return true;
-        }
-        else
-        {
-            return false;
-        }
+        return choice.StartsWith("S", StringComparison.OrdinalIgnoreCase) 
+        || choice.StartsWith("Search", StringComparison.OrdinalIgnoreCase);
     }
 
     public static bool WantsToLeave(string choice)
     {
-        if (choice.ToUpper().StartsWith('E'))
+        if (choice.ToUpper().StartsWith('L'))
         {
             return true;
         }
-        else if (choice.ToUpper().Contains("EXIT"))
+        else if (choice.ToUpper().Contains("LEAVE"))
         {
             return true;
         }

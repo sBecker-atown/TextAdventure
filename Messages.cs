@@ -41,10 +41,14 @@ namespace TextAdventure;
             "The attack was blocked.\n\n";
 
         // Creature was hit for X damage.
-        public static void CreatureHit(Creature player, Creature monster)
+        public static void Hit(Creature attacker, Creature defender)
         {
-            Console.WriteLine($"\n{monster.CreatureName}" + 
-            $" was hit for {player.Damage} damage.");
+            Console.WriteLine($"\n{defender.CreatureName}" + 
+            $" was hit for {attacker.Damage} damage.");
+        }
+        public static void CreatureAttack(Creature attacker)
+        {
+            Console.WriteLine($"\n{attacker.CreatureName} attacks!\n");
         }
 
         // Creature Death.

@@ -3,11 +3,20 @@ namespace TextAdventure;
     public class Creature
     {
         public string CreatureName { get; set; } = string.Empty;
-        public int Attack;
-        public int Damage;
-        public int Defense;
-        public int Hp;
+        public int Attack {get; private set;}
+        public int Damage {get; private set;}
+        public int Defense {get; private set;}
+        public int Hp {get; private set;}
         public List<Item> Inventory;
+        public bool IsDead => Hp <= 0;
+        // Equals
+        /* IsDead
+        {
+            get
+            {
+                return Hp <= 0;
+            }
+        }*/
 
         // Constructor.
         public Creature(string name, int atk, int dmg, 
@@ -21,17 +30,15 @@ namespace TextAdventure;
             Inventory = inventory;
         }
 
-        // Checks if creature is dead (HP <= 0). Returns a bool.
-        public bool Dead()
+        public void TakeDamage(Creature creature)
         {
-            if (Hp <= 0)
+            if (creature.Attack >= Defense) 
             {
-                return true;
+                FightMessage.Hit(creature, this);
+                Hp -= creature.Damage;
+                return;
             }
-            else
-            {
-                return false;
-            }
+            Console.Write(FightMessage.attackBlocked);
         }
 
         public void OpenInventory()
@@ -85,16 +92,16 @@ namespace TextAdventure;
         public void InventoryEquip(string action)
         {
             var itemExists = false;
-            foreach (var Item in Inventory)
+            foreach (var item in Inventory)
             {
-                if (action.Contains(Item.Name))
+                if (action.Contains(item.Name))
                 {
                     // Get item position in list.
-                    var index = Inventory.IndexOf(Item);
+                    var index = Inventory.IndexOf(item);
 
                     // TODO
                     // Check against other items in inventory
-                    Item.UseItem(this);
+                    UseItem(item);
                     itemExists = true;
                     return;
                 }
@@ -108,11 +115,11 @@ namespace TextAdventure;
         public void InventoryUnequip(string action)
         {
             var itemExists = false;
-            foreach (var Item in Inventory)
+            foreach (var item in Inventory)
             {
-                if (action.Contains(Item.Name))
+                if (action.Contains(item.Name))
                 {
-                    Item.UnequipItem(this);
+                    UnequipItem(item);
                     itemExists = true;
                     return;
                 }
@@ -163,5 +170,69 @@ namespace TextAdventure;
             {
                 Console.WriteLine("No such item\n");
             }                                
+        }
+
+        // Checks if Item is a Healing Item, if so applies
+        // the Value stored in "Damage" to player.Hp and then
+        // reduces amount in inventory by 1. If amount results in
+        // 0, item is removed from inventory.
+        // If item is not a Healing Item, applies all item boni
+        // to player stats and sets Active status to true.
+        // If item is already active, returns console message
+        // informing player of such.
+        public void UseItem(Item item)
+        {
+            if (item.Category == ItemCategory.Healing)
+            {
+                // Add Healing "Damage" to player HP
+                // but don't go over max player hp. 
+                Hp += item.Damage;
+                Console.WriteLine($"\nYou were healed for {item.Damage} HP\n");
+                if (Hp > HitPoints.Player)
+                {
+                    Hp = HitPoints.Player;
+                }
+                item.Amount--;
+                if (item.Amount <=0)
+                {
+                    Inventory.Remove(item);
+                }   
+            }
+            else if (item.Active == true)
+            {
+                Console.WriteLine("Item is already equiped.\n");
+                return;
+            }
+            else
+            {
+                item.Active = true;
+                Attack += item.AttackBonus;
+                Damage += item.Damage;
+                Defense += item.DefenseBonus;
+                Console.WriteLine($"{item.Name} equiped.\n");
+            }
+        }
+
+        // Checks if item is active, if it is not returns console
+        // message, informing player that item is already unequiped.
+        // If item is active and not a Healing Item, removes all 
+        // item boni from players stats and sets Active status
+        // to false.
+        public void UnequipItem(Item item)
+        {
+            if (item.Active == false)
+            {
+                Console.WriteLine("Item is not equiped.\n");
+                return;
+            }
+            else if (item.Active == true 
+                    && item.Category != ItemCategory.Healing)
+            {
+                item.Active = false;
+                Attack -= item.AttackBonus;
+                Damage -= item.Damage;
+                Defense -= item.DefenseBonus;
+                Console.WriteLine($"{item.Name} unequiped.\n");
+            }
         }
     }
