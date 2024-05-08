@@ -1,9 +1,12 @@
 ﻿namespace TextAdventure;
+using TextAdventure.Values;
 
 
 
 public class CreatureFactory
 {
+    // Properties of CreatureFactory.
+
     private readonly Creature _skeleton = new (
         "Skeleton",
         Bonus.Weak,
@@ -40,6 +43,8 @@ public class CreatureFactory
         []
     );
 
+    // Methods of CreatureFactory
+    
     public Creature BirthSkeleton()
     {
         return _skeleton;

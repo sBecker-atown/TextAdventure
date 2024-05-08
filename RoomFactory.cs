@@ -3,6 +3,8 @@
 public class RoomFactory
 {
     private readonly Room _room0 = new (
+        // Index
+        000,
         // Name.
         "Room 0",
         // Initial Description.
@@ -22,17 +24,21 @@ public class RoomFactory
         // Description after fight/after fight
         "You stand at the entry of a dank crypt, vines " +
         "are\n" + "growing out of old stone, hanging " +
-        "partly over the entry.\n"
+        "partly over the entry.\n",
         // Walls. Clockwise, starting from north.
-        new Dictionary<Direction, RoomBoundary> {Create.Wall(), Create.UnlockedDoor(), Create.Wall(), Create.Passage()},
+        new Dictionary<Direction, RoomBoundary> {
+            {Direction.North,new RoomBoundary(null,null)},
+            {Direction.East,new RoomBoundary(null,001)}, 
+            {Direction.South,new RoomBoundary(null,null)},
+            {Direction.West,new RoomBoundary(null,000)}
+        }
     );
 
     private readonly Room _room1 = new (
+        // Index.
+        001,
         // Name.
         "Room 1",
-        // Walls.
-        [Create.Wall(), Create.Passage(), 
-         Create.Wall(), Create.UnlockedDoor()],
         // Description.
         "",
         // Creature.
@@ -46,15 +52,21 @@ public class RoomFactory
         // Description with no fight/after fight
         "This empty room is the entrance hall of the crypt.\n" +
         "Boxes are piled up at the walls and some shelves are\n" +
-        "storing urns and stone slates intended for gravestones.\n"
+        "storing urns and stone slates intended for gravestones.\n",
+        // Walls. Clockwise, starting from north.
+        new Dictionary<Direction, RoomBoundary> {
+            {Direction.North,new RoomBoundary(null,null)},
+            {Direction.East,new RoomBoundary(null,002)}, 
+            {Direction.South,new RoomBoundary(null,null)},
+            {Direction.West,new RoomBoundary(null,001)}
+        }
     );
 
     private readonly Room _room2 = new (
+        // Index.
+        002,
         // Name.
         "Room 2",
-        // Walls.
-        [Create.Wall(), Create.Wall(), 
-         Create.FlowerDoor(), Create.Passage()],
         // Description.
         "You stand at the entry of a dank crypt, vines " +
         "are\n" + "growing out of old stone, hanging " +
@@ -72,15 +84,21 @@ public class RoomFactory
         "You stand at the entry of a dank crypt, vines " +
         "are\n" + "growing out of old stone, hanging " +
         "partly over the entry.\n" +
-        "You see the following creature:\n"
+        "You see the following creature:\n",
+        // Walls. Clockwise, starting from north.
+        new Dictionary<Direction, RoomBoundary> {
+            {Direction.North,new RoomBoundary(null,null)},
+            {Direction.East,new RoomBoundary(null,null)}, 
+            {Direction.South,new RoomBoundary(null,005)},
+            {Direction.West,new RoomBoundary(null,001)}
+        }
     );
 
     public readonly Room _room3 = new (
+        // Index.
+        003,
         // Name.
         "Room 3",
-        // Walls.
-        [Create.Wall(), Create.SkullDoor(), 
-         Create.UnlockedDoor(), Create.Wall()],
         // Description.
         "",
         // Creature.
@@ -94,15 +112,21 @@ public class RoomFactory
         // Description with no fight/after fight
         "You stand at the entry of a dank crypt, vines are\n" +
         "growing out of old stone, hanging partly over the entry.\n" +
-        "You see the following creature:\n"
+        "You see the following creature:\n",
+        // Walls. Clockwise, starting from north.
+        new Dictionary<Direction, RoomBoundary> {
+            {Direction.North,new RoomBoundary(null,null)},
+            {Direction.East,new RoomBoundary(002,004)}, 
+            {Direction.South,new RoomBoundary(null,006)},
+            {Direction.West,new RoomBoundary(null,null)}
+        }
     );
 
     public readonly Room _room4 = new (
+        // Index.
+        004,
         // Name.
         "Room 4",
-        // Walls.
-        [Create.Wall(), Create.Wall(), 
-         Create.Wall(), Create.SkullDoor()],
         // Description.
         "",
         // Creature.
@@ -116,15 +140,21 @@ public class RoomFactory
         // Description with no fight/after fight
         "You stand at the entry of a dank crypt, vines are\n" +
         "growing out of old stone, hanging partly over the entry.\n" +
-        "You see the following creature:\n"
+        "You see the following creature:\n",
+        // Walls. Clockwise, starting from north.
+        new Dictionary<Direction, RoomBoundary> {
+            {Direction.North,new RoomBoundary(null,null)},
+            {Direction.East,new RoomBoundary(null,null)}, 
+            {Direction.South,new RoomBoundary(null,null)},
+            {Direction.West,new RoomBoundary(null,003)}
+        }
     );
 
     public readonly Room _room5 = new (
+        // Index.
+        005,
         // Name.
         "Room 5",
-        // Walls.
-        [Create.FlowerDoor(), Create.Wall(), 
-         Create.UnlockedDoor(), Create.Wall()],
         // Description.
         "",
         // Creature.
@@ -138,15 +168,21 @@ public class RoomFactory
         // Description with no fight/after fight
         "You stand at the entry of a dank crypt, vines are\n" +
         "growing out of old stone, hanging partly over the entry.\n" +
-        "You see the following creature:\n"
+        "You see the following creature:\n",
+        // Walls. Clockwise, starting from north.
+        new Dictionary<Direction, RoomBoundary> {
+            {Direction.North,new RoomBoundary(null,002)},
+            {Direction.East,new RoomBoundary(null,null)}, 
+            {Direction.South,new RoomBoundary(null,008)},
+            {Direction.West,new RoomBoundary(null,null)}
+        }
     );
 
     public readonly Room _room6 = new (
+        // Index.
+        006,
         // Name.
         "Room 6",
-        // Walls.
-        [Create.UnlockedDoor(), Create.UnlockedDoor(), 
-         Create.Wall(), Create.Wall()],
         // Description.
         "",
         // Creature.
@@ -160,15 +196,21 @@ public class RoomFactory
         // Description with no fight/after fight
         "You stand at the entry of a dank crypt, vines are\n" +
         "growing out of old stone, hanging partly over the entry.\n" +
-        "You see the following creature:\n"
+        "You see the following creature:\n",
+        // Walls. Clockwise, starting from north.
+        new Dictionary<Direction, RoomBoundary> {
+            {Direction.North,new RoomBoundary(003,003)},
+            {Direction.East,new RoomBoundary(null,007)}, 
+            {Direction.South,new RoomBoundary(null,null)},
+            {Direction.West,new RoomBoundary(null,null)}
+        }
     );
 
     public readonly Room _room7 = new (
+        // Index.
+        007,
         // Name.
         "Room 7",
-        // Walls.
-        [Create.Wall(), Create.Passage(), 
-         Create.Wall(), Create.UnlockedDoor()],
         // Description.
         "",
         // Creature.
@@ -182,10 +224,19 @@ public class RoomFactory
         // Description with no fight/after fight
         "You stand at the entry of a dank crypt, vines are\n" +
         "growing out of old stone, hanging partly over the entry.\n" +
-        "You see the following creature:\n"
+        "You see the following creature:\n",
+        // Walls. Clockwise, starting from north.
+        new Dictionary<Direction, RoomBoundary> {
+            {Direction.North,new RoomBoundary(null,null)},
+            {Direction.East,new RoomBoundary(null,008)}, 
+            {Direction.South,new RoomBoundary(null,null)},
+            {Direction.West,new RoomBoundary(null,006)}
+        }
     );
 
     private readonly Room _room8 = new (
+        // Index.
+        008,
         // Name.
         "Room 8",
         // Description.
@@ -202,9 +253,13 @@ public class RoomFactory
         "You stand at the entry of a dank crypt, vines are\n" +
         "growing out of old stone, hanging partly over the entry.\n" +
         "You see the following creature:\n",
-        // Walls.
-        [Create.UnlockedDoor(), Create.Wall(), 
-         Create.Wall(), Create.Passage()]
+        // Walls. Clockwise, starting from north.
+        new Dictionary<Direction, RoomBoundary> {
+            {Direction.North,new RoomBoundary(null,005)},
+            {Direction.East,new RoomBoundary(null,null)}, 
+            {Direction.South,new RoomBoundary(null,null)},
+            {Direction.West,new RoomBoundary(null,007)}
+        }
     );
 
     public List<Room> CreateRooms()

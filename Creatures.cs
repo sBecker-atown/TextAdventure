@@ -1,4 +1,5 @@
 namespace TextAdventure;
+using TextAdventure.Values;
 
     public class Creature
     {
@@ -9,6 +10,7 @@ namespace TextAdventure;
         public int Hp {get; private set;}
         public List<Item> Inventory;
         public bool IsDead => Hp <= 0;
+        
         // Equals
         /* IsDead
         {

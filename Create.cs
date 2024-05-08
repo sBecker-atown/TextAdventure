@@ -1,4 +1,5 @@
 ﻿namespace TextAdventure;
+using TextAdventure.Values;
 
 public class Create
 {
@@ -7,13 +8,8 @@ public class Create
     {
         RoomBoundary wallType = new
         (
-            WallType.Wall,
-            false,
-            false,
-            000,
-            "",
-            State.Locked,
-            0
+            null,
+            null
         );
         return wallType;
     }
@@ -21,13 +17,8 @@ public class Create
     {
         RoomBoundary wallType = new
         (
-            WallType.Door,
-            false,
-            false,
-            000,
-            "",
-            State.Unlocked,
-            0
+            null,
+            null
         );
         return wallType;
     }
@@ -35,13 +26,8 @@ public class Create
     {
         RoomBoundary wallType = new
         (
-            WallType.Door,
-            false,
-            true,
             002,
-            "Skull Key",
-            State.Locked,
-            0
+            null
         );
         return wallType;
     }
@@ -49,13 +35,8 @@ public class Create
     {
         RoomBoundary wallType = new
         (
-            WallType.Door,
-            false,
-            true,
             003,
-            "Flower Key",
-            State.Locked,
-            0
+            null
         );
         return wallType;
     }
@@ -63,17 +44,15 @@ public class Create
     {
         RoomBoundary wallType = new
         (
-            WallType.None,
-            false,
-            false,
-            000,
-            "",
-            State.Open,
-            0
+            null,
+            null
         );
         return wallType;
     }
+
+
     // Items.
+
     public static Item Candle()
     {
         Item candle = new

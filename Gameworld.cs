@@ -1,4 +1,5 @@
 ﻿namespace TextAdventure;
+using TextAdventure.Values;
 
 public class Gameworld
 {
@@ -41,7 +42,7 @@ public class Gameworld
     public static string WhatToDo(Room room)
         {
             int activeWalls = 0;
-            foreach (var Wall in room.Walls)
+            foreach (var Wall in room.RoomBoundaries)
             {
                 if (Wall.State == State.CurrentLocation)
                 {
