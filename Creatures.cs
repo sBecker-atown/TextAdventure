@@ -59,7 +59,7 @@ using TextAdventure.Values;
                     Console.WriteLine($"{Item.Name}");
                 }
                 Console.WriteLine();
-                string playerAction = Ask.InventoryOptions();
+                string playerAction = AskForInput.InventoryOptions();
 
                 // TOCHECK
                 // IEnumerable could be useful here?
