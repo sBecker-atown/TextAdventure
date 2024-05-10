@@ -66,9 +66,9 @@ Running from a fight will always reset player to Room 0.
     // Create a Dictionary "Items" with ID and name.
 
     // Make a method inside of WhatToDo, that handles, something like:
-    /*      If the player wants to go in a direction,
-                Check if the door is open, if so, leave the room / enter NextRoom,
-                else ask what to do.   
+    /* If the player wants to go in a direction,
+           Check if the door is open, if so, leave the room / enter NextRoom,
+           else ask what to do.   
 
     // We are trapped inside go direction because we ask whatToDoAtXYZ without
         executing playerchoice afterwards.

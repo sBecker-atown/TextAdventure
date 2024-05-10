@@ -5,7 +5,7 @@ namespace TextAdventure;
 public class Room
 {
     // Le Constructeur
-    public Room(int roomIndex, string name, string description, Creature monster, List<Item> loot, bool active,
+    public Room(int roomIndex, string name, string description, Creature monster, List<Item> loot,
                 string descriptionNoFight, Dictionary<Direction, RoomBoundary> boundaries)
     {
         RoomIndex = roomIndex;
@@ -13,7 +13,6 @@ public class Room
         Description = description;
         Monster = monster;
         Loot = loot;
-        RoomActive = active;
         DescriptionNoFight = descriptionNoFight;
         RoomBoundaries = boundaries;
     }

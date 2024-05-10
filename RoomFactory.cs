@@ -17,8 +17,6 @@ public class RoomFactory
         new CreatureFactory().BirthSkeleton(),
         // Loot.
         [Create.SkullKey()],
-        // Active?
-        false,
         // Description after fight/after fight
         "You stand at the entry of a dank crypt, vines " +
         "are\n" + "growing out of old stone, hanging " +
@@ -43,8 +41,6 @@ public class RoomFactory
         new Creature("", 0, 0, 0, 0, []),
         // Loot.
         [],
-        // Active?
-        false,
         // Description with no fight/after fight
         "This empty room is the entrance hall of the crypt.\n" +
         "Boxes are piled up at the walls and some shelves are\n" +
@@ -72,8 +68,6 @@ public class RoomFactory
         new CreatureFactory().BirthZombie(),
         // Loot.
         [],
-        // Active?
-        false,
         // Description with no fight/after fight
         "You stand at the entry of a dank crypt, vines " +
         "are\n" + "growing out of old stone, hanging " +
@@ -99,8 +93,6 @@ public class RoomFactory
         new Creature("", 0, 0, 0, 0, []),
         // Loot.
         [],
-        // Active?
-        false,
         // Description with no fight/after fight
         "You stand at the entry of a dank crypt, vines are\n" +
         "growing out of old stone, hanging partly over the entry.\n" +
@@ -125,8 +117,6 @@ public class RoomFactory
         new Creature("", 0, 0, 0, 0, []),
         // Loot.
         [],
-        // Active?
-        false,
         // Description with no fight/after fight
         "You stand at the entry of a dank crypt, vines are\n" +
         "growing out of old stone, hanging partly over the entry.\n" +
@@ -151,8 +141,6 @@ public class RoomFactory
         new Creature("", 0, 0, 0, 0, []),
         // Loot.
         [],
-        // Active?
-        false,
         // Description with no fight/after fight
         "You stand at the entry of a dank crypt, vines are\n" +
         "growing out of old stone, hanging partly over the entry.\n" +
@@ -177,8 +165,6 @@ public class RoomFactory
         new Creature("", 0, 0, 0, 0, []),
         // Loot.
         [],
-        // Active?
-        false,
         // Description with no fight/after fight
         "You stand at the entry of a dank crypt, vines are\n" +
         "growing out of old stone, hanging partly over the entry.\n" +
@@ -203,8 +189,6 @@ public class RoomFactory
         new Creature("", 0, 0, 0, 0, []),
         // Loot.
         [],
-        // Active?
-        false,
         // Description with no fight/after fight
         "You stand at the entry of a dank crypt, vines are\n" +
         "growing out of old stone, hanging partly over the entry.\n" +
@@ -229,8 +213,6 @@ public class RoomFactory
         new Creature("", 0, 0, 0, 0, []),
         // Loot.
         [],
-        // Active?
-        false,
         // Description with no fight/after fight
         "You stand at the entry of a dank crypt, vines are\n" +
         "growing out of old stone, hanging partly over the entry.\n" +
