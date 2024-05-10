@@ -137,7 +137,7 @@ using TextAdventure.Values;
             var itemExists = false;
             foreach (var Item in room.Loot)
             {
-                if (action.Contains(Item.Name))
+                if (action.Contains(Item.Name, StringComparison.OrdinalIgnoreCase))
                 {
                     // Check if Item already exists and if so 
                     // increase amount. Else add item to inventory 
@@ -146,24 +146,32 @@ using TextAdventure.Values;
                     for (int i = 0; i < Inventory.Count; i++)
                     {
                         if (action.Contains($"{Inventory[i].Name}"))
-                        {
-                            Inventory[i].Amount++;
-                            playerHasItem = true;
+                        {   
+                            // Item does exist, and player already has an identical item.
                             itemExists = true;
+                            playerHasItem = true;
+
+                            // Increase amount of item in player inventory.
+                            Inventory[i].Amount++;
+                            
+                            // Remove item from room and tell player, that item was picked up.
                             room.Loot.Remove(Item);
-                            Console.WriteLine($"{Item.Name} added" +
-                            " to inventory\n");
+                            Console.WriteLine($"{Item.Name} added to inventory\n");
                             return;
                         }
                     }
                     if (playerHasItem == false)
                     {
-                        Inventory.Add(Item);
-                        playerHasItem = true;
+                        // Item does exist and player now has this item.
                         itemExists = true;
+                        playerHasItem = true;
+                        
+                        // Add Item to player inventory.
+                        Inventory.Add(Item);
+                        
+                        // Remove item from room and tell player, that item was picked up.
                         room.Loot.Remove(Item);
-                        Console.WriteLine($"{Item.Name} added to" +
-                        " inventory\n");
+                        Console.WriteLine($"{Item.Name} added to inventory\n");
                         return;
                     }       
                 }
@@ -186,8 +194,7 @@ using TextAdventure.Values;
         {
             if (item.Category == ItemCategory.Healing)
             {
-                // Add Healing "Damage" to player HP
-                // but don't go over max player hp. 
+                // Add Healing "Damage" to player HP but don't go over max player hp. 
                 Hp += item.Damage;
                 Console.WriteLine($"\nYou were healed for {item.Damage} HP\n");
                 if (Hp > HitPoints.Player)
@@ -218,8 +225,7 @@ using TextAdventure.Values;
         // Checks if item is active, if it is not returns console
         // message, informing player that item is already unequiped.
         // If item is active and not a Healing Item, removes all 
-        // item boni from players stats and sets Active status
-        // to false.
+        // item boni from players stats and sets Active status to false.
         public void UnequipItem(Item item)
         {
             if (item.Active == false)

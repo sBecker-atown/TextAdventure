@@ -25,10 +25,10 @@ public class RoomFactory
         "partly over the entry.\n",
         // Walls. Clockwise, starting from north.
         new Dictionary<Direction, RoomBoundary> {
-            {Direction.North,new RoomBoundary(null,null)},
-            {Direction.East,new RoomBoundary(null,001)}, 
-            {Direction.South,new RoomBoundary(null,null)},
-            {Direction.West,new RoomBoundary(null,000)}
+            {Direction.North, RoomBoundary.CreateWall()},
+            {Direction.East, RoomBoundary.CreatePassageToRoom(001)}, 
+            {Direction.South, RoomBoundary.CreateWall()},
+            {Direction.West, RoomBoundary.CreatePassageToRoom(000)}
         }
     );
 
@@ -51,10 +51,10 @@ public class RoomFactory
         "storing urns and stone slates intended for gravestones.\n",
         // Walls. Clockwise, starting from north.
         new Dictionary<Direction, RoomBoundary> {
-            {Direction.North,new RoomBoundary(null,null)},
-            {Direction.East,new RoomBoundary(null,002)}, 
-            {Direction.South,new RoomBoundary(null,null)},
-            {Direction.West,new RoomBoundary(null,001)}
+            {Direction.North, RoomBoundary.CreateWall()},
+            {Direction.East, RoomBoundary.CreatePassageToRoom(002)}, 
+            {Direction.South, RoomBoundary.CreateWall()},
+            {Direction.West, RoomBoundary.CreatePassageToRoom(000)}
         }
     );
 
@@ -81,10 +81,10 @@ public class RoomFactory
         "You see the following creature:\n",
         // Walls. Clockwise, starting from north.
         new Dictionary<Direction, RoomBoundary> {
-            {Direction.North,new RoomBoundary(null,null)},
-            {Direction.East,new RoomBoundary(null,null)}, 
-            {Direction.South,new RoomBoundary(null,005)},
-            {Direction.West,new RoomBoundary(null,001)}
+            {Direction.North, RoomBoundary.CreateWall()},
+            {Direction.East, RoomBoundary.CreateWall()}, 
+            {Direction.South, RoomBoundary.CreatePassageToRoom(005)},
+            {Direction.West, RoomBoundary.CreatePassageToRoom(001)}
         }
     );
 
@@ -107,10 +107,10 @@ public class RoomFactory
         "You see the following creature:\n",
         // Walls. Clockwise, starting from north.
         new Dictionary<Direction, RoomBoundary> {
-            {Direction.North,new RoomBoundary(null,null)},
-            {Direction.East,new RoomBoundary(002,004)}, 
-            {Direction.South,new RoomBoundary(null,006)},
-            {Direction.West,new RoomBoundary(null,null)}
+            {Direction.North, RoomBoundary.CreateWall()},
+            {Direction.East, RoomBoundary.CreateDoorWithKeyIdAndNextRoom(002,004)}, 
+            {Direction.South, RoomBoundary.CreatePassageToRoom(006)},
+            {Direction.West, RoomBoundary.CreateWall()}
         }
     );
 
@@ -133,10 +133,10 @@ public class RoomFactory
         "You see the following creature:\n",
         // Walls. Clockwise, starting from north.
         new Dictionary<Direction, RoomBoundary> {
-            {Direction.North,new RoomBoundary(null,null)},
-            {Direction.East,new RoomBoundary(null,null)}, 
-            {Direction.South,new RoomBoundary(null,null)},
-            {Direction.West,new RoomBoundary(null,003)}
+            {Direction.North, RoomBoundary.CreateWall()},
+            {Direction.East, RoomBoundary.CreateWall()}, 
+            {Direction.South, RoomBoundary.CreateWall()},
+            {Direction.West, RoomBoundary.CreatePassageToRoom(003)}
         }
     );
 
@@ -159,10 +159,10 @@ public class RoomFactory
         "You see the following creature:\n",
         // Walls. Clockwise, starting from north.
         new Dictionary<Direction, RoomBoundary> {
-            {Direction.North,new RoomBoundary(null,002)},
-            {Direction.East,new RoomBoundary(null,null)}, 
-            {Direction.South,new RoomBoundary(null,008)},
-            {Direction.West,new RoomBoundary(null,null)}
+            {Direction.North, RoomBoundary.CreatePassageToRoom(002)},
+            {Direction.East, RoomBoundary.CreateWall()}, 
+            {Direction.South, RoomBoundary.CreatePassageToRoom(008)},
+            {Direction.West, RoomBoundary.CreateWall()}
         }
     );
 
@@ -185,10 +185,10 @@ public class RoomFactory
         "You see the following creature:\n",
         // Walls. Clockwise, starting from north.
         new Dictionary<Direction, RoomBoundary> {
-            {Direction.North,new RoomBoundary(003,003)},
-            {Direction.East,new RoomBoundary(null,007)}, 
-            {Direction.South,new RoomBoundary(null,null)},
-            {Direction.West,new RoomBoundary(null,null)}
+            {Direction.North, RoomBoundary.CreateDoorWithKeyIdAndNextRoom(003,003)},
+            {Direction.East, RoomBoundary.CreatePassageToRoom(007)}, 
+            {Direction.South, RoomBoundary.CreateWall()},
+            {Direction.West, RoomBoundary.CreateWall()}
         }
     );
 
@@ -211,10 +211,10 @@ public class RoomFactory
         "You see the following creature:\n",
         // Walls. Clockwise, starting from north.
         new Dictionary<Direction, RoomBoundary> {
-            {Direction.North,new RoomBoundary(null,null)},
-            {Direction.East,new RoomBoundary(null,008)}, 
-            {Direction.South,new RoomBoundary(null,null)},
-            {Direction.West,new RoomBoundary(null,006)}
+            {Direction.North, RoomBoundary.CreateWall()},
+            {Direction.East, RoomBoundary.CreatePassageToRoom(008)}, 
+            {Direction.South, RoomBoundary.CreateWall()},
+            {Direction.West, RoomBoundary.CreatePassageToRoom(006)}
         }
     );
 
@@ -237,10 +237,10 @@ public class RoomFactory
         "You see the following creature:\n",
         // Walls. Clockwise, starting from north.
         new Dictionary<Direction, RoomBoundary> {
-            {Direction.North,new RoomBoundary(null,005)},
-            {Direction.East,new RoomBoundary(null,null)}, 
-            {Direction.South,new RoomBoundary(null,null)},
-            {Direction.West,new RoomBoundary(null,007)}
+            {Direction.North, RoomBoundary.CreatePassageToRoom(005)},
+            {Direction.East, RoomBoundary.CreateWall()}, 
+            {Direction.South, RoomBoundary.CreateWall()},
+            {Direction.West, RoomBoundary.CreatePassageToRoom(007)}
         }
     );
 

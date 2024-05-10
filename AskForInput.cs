@@ -5,30 +5,30 @@ namespace TextAdventure;
 public class AskForInput
 {
     private static string _whatToDo =
-        "What do you want to do?\n\n" +
+        "\nWhat do you want to do?\n\n" +
         "Open (I)nventory, (G)o (direction),\n" + 
-        "(S)earch Room, (L)eave dungeon\n";
+        "(S)earch Room, (E)xit dungeon\n";
 
     private static string _whatToDoPassage =
-        "You are facing an archway.\n" +
+        "\nYou are facing an archway.\n" +
         "Behind the passage you can see the boundaries of " +
         " the next room.\n\n" +
         "What do you want to do?\n\n" +
-        "Open (I)nventory, (G)o (direction),\n" +
-        "(S)earch Room, (L)eave dungeon\n";
+        "Open (I)nventory, (G)o (direction), (L)eave Room\n" +
+        "(S)earch Room, (E)xit dungeon\n";
 
     private static string _whatToDoDoor =
-        "You are facing a door.\n\n" +
+        "\nYou are facing a door.\n\n" +
         "What do you want to do?\n\n" +
         "(O)pen door, Open (I)nventory, (G)o (direction),\n" +
-        "(S)earch Room, (L)eave dungeon\n";
+        "(S)earch Room, (E)xit dungeon\n";
         
     private static string _whatToDoWall =
-        "You are facing a wall.\n" +
+        "\nYou are facing a wall.\n" +
         "There is no way forward here.\n\n" +
         "What do you want to do?\n\n" +
         "Open (I)nventory, (G)o (direction),\n" +
-        "(S)earch Room, (L)eave dungeon\n";
+        "(S)earch Room, (E)xit dungeon\n";
 
 
     // Methods.

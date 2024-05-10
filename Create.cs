@@ -3,54 +3,6 @@ using TextAdventure.Values;
 
 public class Create
 {
-    // Walltypes.
-    public static RoomBoundary Wall()
-    {
-        RoomBoundary wallType = new
-        (
-            null,
-            null
-        );
-        return wallType;
-    }
-    public static RoomBoundary UnlockedDoor()
-    {
-        RoomBoundary wallType = new
-        (
-            null,
-            null
-        );
-        return wallType;
-    }
-    public static RoomBoundary SkullDoor()
-    {
-        RoomBoundary wallType = new
-        (
-            002,
-            null
-        );
-        return wallType;
-    }
-    public static RoomBoundary FlowerDoor()
-    {
-        RoomBoundary wallType = new
-        (
-            003,
-            null
-        );
-        return wallType;
-    }
-    public static RoomBoundary Passage()
-    {
-        RoomBoundary wallType = new
-        (
-            null,
-            null
-        );
-        return wallType;
-    }
-
-
     // Items.
 
     public static Item Candle()

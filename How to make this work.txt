@@ -49,13 +49,6 @@ Running from a fight will always reset player to Room 0.
 // and then does the "AllRooms[x].EnterRoom()" function.
 
 // New TODO
-    // Make a subclass "Actions" for all possible Actions
-        Methodtype: void
-        Arguments:  playerAction, Walls, player
-        Naming:     Action.GoTo, Action.OpenDoor, Action.SearchRoom
-
-    // Add boolean to objects: "Can be opened" -> check in Action.Open 
-       and exit Action.Open Method if object can't be opened.
 
     // RoomBoundary: 
     /* KeyID maps to which door is this.
@@ -71,3 +64,14 @@ Running from a fight will always reset player to Room 0.
         // Use Console.WriteLine(String.Format(stringName, variableContentName));
 
     // Create a Dictionary "Items" with ID and name.
+
+    // Make a method inside of WhatToDo, that handles, something like:
+    /*      If the player wants to go in a direction,
+                Check if the door is open, if so, leave the room / enter NextRoom,
+                else ask what to do.   
+
+    // We are trapped inside go direction because we ask whatToDoAtXYZ without
+        executing playerchoice afterwards.
+
+    // RoomBoundary needs a bool "is door" so we can read a different
+        Message when facing an open door. (not "you are facing an archway")

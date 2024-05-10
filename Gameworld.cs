@@ -27,6 +27,8 @@ public class Gameworld
     // Create Gamemap.
     private List<Room> _gameMap = new Map().CreateMap();
 
+    private RoomBoundary _wallAtPlayerLocation = null!;
+
 
 
     // Main Gameworld Method.
@@ -35,15 +37,21 @@ public class Gameworld
     {
         // Start Game with welcome message & intro text
         Introduction();
-        
-        // Enter first room.
-        EnterRoom(_gameMap[0]);
 
-        if (!_activeRoom.Monster.IsDead)
+        // Set Room 0 as active.
+        _activeRoom = _gameMap[0];
+
+        while (!_player.IsDead)
         {
-            StartEncounter();
+            // Present active room.
+            _activeRoom.PresentRoom();
+
+            if (!_activeRoom.Monster.IsDead)
+            {
+                StartEncounter();
+            }
+            PlayerAction();
         }
-        PlayerAction();
     }
     
 
@@ -68,6 +76,7 @@ public class Gameworld
         // TryGetValue returns a bool, which is true if value for specific key exists in dictionary. If not it is false.
         if (_activeRoom.RoomBoundaries.TryGetValue(_playerLocation, out var currentWall))
         {
+            _wallAtPlayerLocation = currentWall;
             if (currentWall.KeyID == null && currentWall.NextRoom == null)
             {
                 AskForInput.WhatToDoAtWall();
@@ -81,7 +90,10 @@ public class Gameworld
                 AskForInput.WhatToDoAtDoor();
             }
         }
-        AskForInput.WhatToDo();
+        else 
+        {
+            AskForInput.WhatToDo();
+        }
 
         string choice;
         do
@@ -91,15 +103,6 @@ public class Gameworld
         while (string.IsNullOrEmpty(choice));
         
         return choice;
-    }
-
-
-    // Entering a room.
-
-    public void EnterRoom(Room newRoom)
-    {
-        _activeRoom = newRoom;
-        _activeRoom.PresentRoom();
     }
 
 
@@ -193,25 +196,21 @@ public class Gameworld
             // Needs to load the next room, if player walks through door.
             if (InputAnalysis.WantsToGoTo(playerAction))
             {
-                if (playerAction.ToUpper().Contains("NORTH"))
+                if (playerAction.Contains("North", StringComparison.OrdinalIgnoreCase))
                 {
                     _playerLocation = Direction.North;
-                    playerAction = WhatToDo();
                 }
-                else if (playerAction.ToUpper().Contains("EAST"))
+                else if (playerAction.Contains("East", StringComparison.OrdinalIgnoreCase))
                 {
                     _playerLocation = Direction.East;
-                    playerAction = WhatToDo();
                 }
-                else if (playerAction.ToUpper().Contains("SOUTH"))
+                else if (playerAction.Contains("South", StringComparison.OrdinalIgnoreCase))
                 {
                     _playerLocation = Direction.South;
-                    playerAction = WhatToDo();
                 }
-                else if (playerAction.ToUpper().Contains("WEST"))
+                else if (playerAction.Contains("West", StringComparison.OrdinalIgnoreCase))
                 {
                     _playerLocation = Direction.West;
-                    playerAction = WhatToDo();
                 }
                 else
                 {
@@ -222,11 +221,25 @@ public class Gameworld
             // Open door.
             if (InputAnalysis.WantsToOpen(playerAction))
             {
-                // _activeRoom.OpenDoor(_player);
+                OpenDoor();
             }
 
-            // Leave dungeon.
+            // Leave Room.
             if (InputAnalysis.WantsToLeave(playerAction))
+            {
+                for (int i = 0; i < _gameMap.Count; i++)
+                {
+                    if (_gameMap[i].RoomIndex == _wallAtPlayerLocation.NextRoom)
+                    {
+                        _activeRoom = _gameMap[i];
+                        _playerLocation = Direction.None;
+                        return;
+                    }
+                }
+            }
+
+            // Exit dungeon.
+            if (InputAnalysis.WantsToExit(playerAction))
             {
                 // Display GAME OVER.
                 Console.WriteLine(Message.gameOver);
@@ -249,5 +262,30 @@ public class Gameworld
             }
         }
         while (!_player.IsDead);
+    }
+
+    private void OpenDoor()
+    {
+        var playerHasKey = false;
+        
+        foreach (var item in _player.Inventory)
+        {
+            if (item.ID == _wallAtPlayerLocation.KeyID)
+            {
+                playerHasKey = true;
+            }
+        }
+
+        switch (playerHasKey)
+        {
+            case true:
+                _wallAtPlayerLocation.KeyID = null;
+                Console.WriteLine("You open the door.");
+                break; 
+            case false: 
+                Console.WriteLine("You don't have " +
+                "the Key for that.");
+                break;
+        }
     }
 }

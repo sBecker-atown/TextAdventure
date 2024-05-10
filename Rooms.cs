@@ -50,47 +50,10 @@ public class Room
         }
         
     }
-    
-
-    /*private void OpenDoor(Creature player)
-    {
-        var playerHasKey = false;
-        // Check if Door needs Key.
-        foreach (var Wall in Walls)
-        {
-            if (Wall.PlayerLocation && Wall.NeedsKey)
-            {
-                // Check if player has Key.
-                foreach (var Item in player.Inventory)
-                {
-                    if (Item.ID == Wall.KeyID)
-                    {
-                        playerHasKey = true;
-                    }
-                }
-            }
-            if (playerHasKey || !Wall.NeedsKey && 
-            Wall.Type == WallType.Door)
-            {
-                // Open Door.
-                Wall.State = State.Open;
-                Console.WriteLine("You open the door.");
-            }
-            else if (!playerHasKey && Wall.NeedsKey)
-            {
-                Console.WriteLine("You don't have " +
-                "the Key for that.");
-            }
-            else if (!playerHasKey && !Wall.NeedsKey)
-            {
-                Console.WriteLine("You can't do that.");
-            }
-        }
-    } */
 
     public void SearchRoom(Creature player)
     {
-        if (Loot.Count == 0)
+        if (Loot.Count < 1)
         {
             Console.WriteLine("No Loot found in this room :(\n");
             return;
@@ -103,6 +66,7 @@ public class Room
                 Console.WriteLine($"{Item.Name}");
             }
             Console.WriteLine();
+            
             string playerAction = AskForInput.LootOptions();
             if (InputAnalysis.WantsToPickUp(playerAction))
             {
