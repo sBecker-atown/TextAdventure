@@ -83,7 +83,7 @@ public class Gameworld
             }
             else if (currentWall.KeyID == null && currentWall.NextRoom != null)
             {
-                AskForInput.WhatToDoAtPassage();
+                AskForInput.WhatToDoAtPassage(currentWall.IsADoor);
             }
             else if (currentWall.KeyID != null && currentWall.NextRoom != null)
             {

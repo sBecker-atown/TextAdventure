@@ -22,6 +22,14 @@ public class AskForInput
         "What do you want to do?\n\n" +
         "(O)pen door, Open (I)nventory, (G)o (direction),\n" +
         "(S)earch Room, (E)xit dungeon\n";
+
+    private static string _whatToDoOpenDoor =
+        "\nYou are facing an open door.\n" +
+        "Through the doorframe you can see " +
+        "the boundaries of the next room.\n\n" +
+        "What do you want to do?\n\n" +
+        "Open (I)nventory, (G)o (direction), (L)eave Room\n" +
+        "(S)earch Room, (E)xit dungeon\n";
         
     private static string _whatToDoWall =
         "\nYou are facing a wall.\n" +
@@ -48,9 +56,17 @@ public class AskForInput
         Console.WriteLine(_whatToDoDoor);
     }
 
-    public static void WhatToDoAtPassage()
+    public static void WhatToDoAtPassage(bool? isADoor)
     {
-        Console.WriteLine(_whatToDoPassage);
+        switch (isADoor)
+        {
+            case false:
+                Console.WriteLine(_whatToDoPassage);
+                break;
+            case true:
+                Console.WriteLine(_whatToDoOpenDoor);
+                break;
+        }
     }
 
     public static string InventoryOptions()

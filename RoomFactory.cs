@@ -6,7 +6,7 @@ public class RoomFactory
         // Index
         000,
         // Name.
-        "Room 0",
+        "Courtyard",
         // Initial Description.
         "You stand at the entry of a dank crypt, vines " +
         "are\n" + "growing out of old stone, hanging " +
@@ -16,7 +16,7 @@ public class RoomFactory
         // Creature.
         new CreatureFactory().BirthSkeleton(),
         // Loot.
-        [Create.SkullKey()],
+        [],
         // Description after fight/after fight
         "You stand at the entry of a dank crypt, vines " +
         "are\n" + "growing out of old stone, hanging " +
@@ -34,13 +34,13 @@ public class RoomFactory
         // Index.
         001,
         // Name.
-        "Room 1",
+        "Entry Hall",
         // Description.
         "",
         // Creature.
         new Creature("", 0, 0, 0, 0, []),
         // Loot.
-        [],
+        [Create.FlowerKey()],
         // Description with no fight/after fight
         "This empty room is the entrance hall of the crypt.\n" +
         "Boxes are piled up at the walls and some shelves are\n" +
@@ -58,21 +58,20 @@ public class RoomFactory
         // Index.
         002,
         // Name.
-        "Room 2",
+        "Soldiers Graves",
         // Description.
-        "You stand at the entry of a dank crypt, vines " +
-        "are\n" + "growing out of old stone, hanging " +
-        "partly over the entry.\n" +
-        "You see the following creature:\n",
+        "This room has alcoves and benches on it's side walls, in\n" +
+        "which half rotten corpses are lying. Some of them seem to be fallen\n" + 
+        "soldiers from a long lost battle.\n" +
+        "On of them seems to not like you entering it's resting place:\n",
         // Creature.
         new CreatureFactory().BirthZombie(),
         // Loot.
-        [],
+        [Create.LeatherArmor()],
         // Description with no fight/after fight
-        "You stand at the entry of a dank crypt, vines " +
-        "are\n" + "growing out of old stone, hanging " +
-        "partly over the entry.\n" +
-        "You see the following creature:\n",
+        "This room has alcoves and benches on it's side walls, in\n" +
+        "which half rotten corpses are lying. Some of them seem to be fallen\n" + 
+        "soldiers from a long lost battle.\n",
         // Walls. Clockwise, starting from north.
         new Dictionary<Direction, RoomBoundary> {
             {Direction.North, RoomBoundary.CreateWall()},
@@ -86,7 +85,7 @@ public class RoomFactory
         // Index.
         003,
         // Name.
-        "Room 3",
+        "The entry to hell",
         // Description.
         "",
         // Creature.
@@ -94,9 +93,9 @@ public class RoomFactory
         // Loot.
         [],
         // Description with no fight/after fight
-        "You stand at the entry of a dank crypt, vines are\n" +
-        "growing out of old stone, hanging partly over the entry.\n" +
-        "You see the following creature:\n",
+        "This room seems to be a storage room, where corpses were stripped of their\n" +
+        "material possessions before cremation. Racks of half rotten clothes, rusty weapons\n" +
+        "and armorpieces are gracing the walls.\n",
         // Walls. Clockwise, starting from north.
         new Dictionary<Direction, RoomBoundary> {
             {Direction.North, RoomBoundary.CreateWall()},
@@ -110,11 +109,11 @@ public class RoomFactory
         // Index.
         004,
         // Name.
-        "Room 4",
+        "The Liches lair.",
         // Description.
         "",
         // Creature.
-        new Creature("", 0, 0, 0, 0, []),
+        new CreatureFactory().BirthLich(),
         // Loot.
         [],
         // Description with no fight/after fight
@@ -134,22 +133,22 @@ public class RoomFactory
         // Index.
         005,
         // Name.
-        "Room 5",
+        "Crematory Storage",
         // Description.
         "",
         // Creature.
         new Creature("", 0, 0, 0, 0, []),
         // Loot.
-        [],
+        [Create.HealingPotion(), Create.Longsword(), Create.Shield()],
         // Description with no fight/after fight
-        "You stand at the entry of a dank crypt, vines are\n" +
-        "growing out of old stone, hanging partly over the entry.\n" +
-        "You see the following creature:\n",
+        "This room seems to be a storage room, where corpses were stripped of their\n" +
+        "material possessions before cremation. Racks of half rotten clothes, rusty weapons\n" +
+        "and armorpieces are gracing the walls.\n",
         // Walls. Clockwise, starting from north.
         new Dictionary<Direction, RoomBoundary> {
             {Direction.North, RoomBoundary.CreatePassageToRoom(002)},
             {Direction.East, RoomBoundary.CreateWall()}, 
-            {Direction.South, RoomBoundary.CreatePassageToRoom(008)},
+            {Direction.South, RoomBoundary.CreateDoorWithKeyIdAndNextRoom(003,008)},
             {Direction.West, RoomBoundary.CreateWall()}
         }
     );
@@ -158,7 +157,7 @@ public class RoomFactory
         // Index.
         006,
         // Name.
-        "Room 6",
+        "TBD",
         // Description.
         "",
         // Creature.
@@ -182,7 +181,7 @@ public class RoomFactory
         // Index.
         007,
         // Name.
-        "Room 7",
+        "TBD",
         // Description.
         "",
         // Creature.
@@ -206,20 +205,24 @@ public class RoomFactory
         // Index.
         008,
         // Name.
-        "Room 8",
+        "Creamatory",
         // Description.
-        "",
+        "This Room is the main crematory. It was used to preserve the dead.\n" +
+        "One of such dead lies ontop of a large stone table in the middle of the room.\n" +
+        "It is clothed in tightly wrapped bandages over with a graceful chainmail is layered.\n" +
+        "The mummy greets you welcome in it's temporary home:\n",
         // Creature.
-        new Creature("", 0, 0, 0, 0, []),
+        new CreatureFactory().BirthMummy(),
         // Loot.
-        [],
+        [Create.HealingPotion(), Create.ChainMail()],
         // Description with no fight/after fight
-        "You stand at the entry of a dank crypt, vines are\n" +
-        "growing out of old stone, hanging partly over the entry.\n" +
-        "You see the following creature:\n",
+        "This Room is the main crematory. It was used to preserve the dead.\n" +
+        "In the middle of the room stands a larage stone table.\n" +
+        "On the floor lie the fruits of your vile destruction: The destroyed mummy of\n" +
+        "the elven princess Sha'leila, the Fair.\n",
         // Walls. Clockwise, starting from north.
         new Dictionary<Direction, RoomBoundary> {
-            {Direction.North, RoomBoundary.CreatePassageToRoom(005)},
+            {Direction.North, RoomBoundary.CreateDoorWithKeyIdAndNextRoom(null,005)},
             {Direction.East, RoomBoundary.CreateWall()}, 
             {Direction.South, RoomBoundary.CreateWall()},
             {Direction.West, RoomBoundary.CreatePassageToRoom(007)}

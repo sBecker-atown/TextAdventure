@@ -54,4 +54,14 @@ public class CreatureFactory
     {
         return _zombie;
     }
+
+    public Creature BirthLich()
+    {
+        return _lich;
+    }
+
+    public Creature BirthMummy()
+    {
+        return _mummy;
+    }
 }
