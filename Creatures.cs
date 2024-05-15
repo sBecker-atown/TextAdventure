@@ -1,4 +1,6 @@
 namespace TextAdventure;
+
+using System.ComponentModel.Design;
 using TextAdventure.Values;
 
     public class Creature
@@ -91,12 +93,12 @@ using TextAdventure.Values;
             }    
         }
 
-        public void InventoryEquip(string action)
+        private void InventoryEquip(string action)
         {
             var itemExists = false;
             foreach (var item in Inventory)
             {
-                if (action.Contains(item.Name))
+                if (action.Contains(item.Name, StringComparison.OrdinalIgnoreCase))
                 {
                     // Get item position in list.
                     var index = Inventory.IndexOf(item);
@@ -114,12 +116,12 @@ using TextAdventure.Values;
             }                                
         }
 
-        public void InventoryUnequip(string action)
+        private void InventoryUnequip(string action)
         {
             var itemExists = false;
             foreach (var item in Inventory)
             {
-                if (action.Contains(item.Name))
+                if (action.Contains(item.Name, StringComparison.OrdinalIgnoreCase))
                 {
                     UnequipItem(item);
                     itemExists = true;
@@ -145,7 +147,7 @@ using TextAdventure.Values;
                     var playerHasItem = false;
                     for (int i = 0; i < Inventory.Count; i++)
                     {
-                        if (action.Contains($"{Inventory[i].Name}"))
+                        if (action.Contains(Inventory[i].Name, StringComparison.OrdinalIgnoreCase))
                         {   
                             // Item does exist, and player already has an identical item.
                             itemExists = true;
@@ -190,7 +192,7 @@ using TextAdventure.Values;
         // to player stats and sets Active status to true.
         // If item is already active, returns console message
         // informing player of such.
-        public void UseItem(Item item)
+        private void UseItem(Item item)
         {
             if (item.Category == ItemCategory.Healing)
             {
@@ -212,6 +214,10 @@ using TextAdventure.Values;
                 Console.WriteLine("Item is already equiped.\n");
                 return;
             }
+            else if (CheckIfItemSlotIsBlocked(item))
+            {
+                Console.WriteLine($"You are already have a {item.Category} equiped.\n");
+            }
             else
             {
                 item.Active = true;
@@ -226,7 +232,7 @@ using TextAdventure.Values;
         // message, informing player that item is already unequiped.
         // If item is active and not a Healing Item, removes all 
         // item boni from players stats and sets Active status to false.
-        public void UnequipItem(Item item)
+        private void UnequipItem(Item item)
         {
             if (item.Active == false)
             {
@@ -242,5 +248,17 @@ using TextAdventure.Values;
                 Defense -= item.DefenseBonus;
                 Console.WriteLine($"{item.Name} unequiped.\n");
             }
+        }
+
+        private bool CheckIfItemSlotIsBlocked(Item newItem)
+        {
+            foreach (var item in Inventory)
+            {
+                if (item.Category == newItem.Category && item.Active)
+                {
+                    return true;
+                }
+            }
+            return false;
         }
     }

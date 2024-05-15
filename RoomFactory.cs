@@ -63,7 +63,7 @@ public class RoomFactory
         "This room has alcoves and benches on it's side walls, in\n" +
         "which half rotten corpses are lying. Some of them seem to be fallen\n" + 
         "soldiers from a long lost battle.\n" +
-        "On of them seems to not like you entering it's resting place:\n",
+        "One of them seems to not like you entering it's resting place:\n",
         // Creature.
         new CreatureFactory().BirthZombie(),
         // Loot.
@@ -218,7 +218,7 @@ public class RoomFactory
         // Description with no fight/after fight
         "This Room is the main crematory. It was used to preserve the dead.\n" +
         "In the middle of the room stands a larage stone table.\n" +
-        "On the floor lie the fruits of your vile destruction: The destroyed mummy of\n" +
+        "On the floor lies the fruits of your vile destruction: The destroyed mummy of\n" +
         "the elven princess Sha'leila, the Fair.\n",
         // Walls. Clockwise, starting from north.
         new Dictionary<Direction, RoomBoundary> {
