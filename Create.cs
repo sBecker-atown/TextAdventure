@@ -64,7 +64,7 @@ public class Create
             Bonus.None,
             Damage.Major,
             Bonus.None,
-            true
+            false
         );
         return healingPotion;
     }

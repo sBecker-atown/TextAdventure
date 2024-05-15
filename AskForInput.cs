@@ -6,36 +6,36 @@ public class AskForInput
 {
     private static string _whatToDo =
         "\nWhat do you want to do?\n\n" +
-        "Open (I)nventory, (G)o (direction),\n" + 
-        "(S)earch Room, (E)xit dungeon\n";
+        "Open (I)nventory,  Show (H)ealth,\n" +
+        "(G)o (direction), (S)earch Room, (E)xit dungeon\n";
 
     private static string _whatToDoPassage =
         "\nYou are facing an archway.\n" +
         "Behind the passage you can see the boundaries of " +
         " the next room.\n\n" +
         "What do you want to do?\n\n" +
-        "Open (I)nventory, (G)o (direction), (L)eave Room\n" +
-        "(S)earch Room, (E)xit dungeon\n";
+        "(L)eave Room, Open (I)nventory, Show (H)ealth,\n" +
+        "(G)o (direction), (S)earch Room, (E)xit dungeon\n";
 
     private static string _whatToDoDoor =
         "\nYou are facing a door.\n\n" +
         "What do you want to do?\n\n" +
-        "(O)pen door, Open (I)nventory, (G)o (direction),\n" +
-        "(S)earch Room, (E)xit dungeon\n";
+        "(O)pen door, Open (I)nventory, Show (H)ealth,\n" + 
+        "(G)o (direction), (S)earch Room, (E)xit dungeon\n";
 
     private static string _whatToDoOpenDoor =
         "\nYou are facing an open door.\n" +
         "Through the doorframe you can see " +
         "the boundaries of the next room.\n\n" +
         "What do you want to do?\n\n" +
-        "Open (I)nventory, (G)o (direction), (L)eave Room\n" +
-        "(S)earch Room, (E)xit dungeon\n";
+        "(L)eave Room, Open (I)nventory, Show (H)ealth\n" +
+        "(G)o (direction), (S)earch Room, (E)xit dungeon\n";
         
     private static string _whatToDoWall =
         "\nYou are facing a wall.\n" +
         "There is no way forward here.\n\n" +
         "What do you want to do?\n\n" +
-        "Open (I)nventory, (G)o (direction),\n" +
+        "Open (I)nventory, Show (H)ealth, (G)o (direction),\n" +
         "(S)earch Room, (E)xit dungeon\n";
 
 
@@ -106,7 +106,7 @@ public class AskForInput
     { 
         string fightOptions = 
         "What do you want to do?\n" +
-        "(A)ttack, (R)un, Open (I)nventory\n";
+        "(A)ttack, (R)un, Open (I)nventory, Show (H)ealth\n";
         Console.WriteLine(fightOptions);
 
         string choice;

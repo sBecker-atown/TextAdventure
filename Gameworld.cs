@@ -176,6 +176,12 @@ public class Gameworld
                 Console.WriteLine();
                 _player.OpenInventory();
             }
+
+            // Player wants to see Health
+            if (InputAnalysis.WantsToSeePlayerStats(playerAction))
+            {
+                Message.CreatureStats(_player);
+            }
         }
         while (_player.Hp > 0 && _activeRoom.Monster.Hp > 0);
     }
@@ -259,6 +265,12 @@ public class Gameworld
             {
                 Console.WriteLine();
                 _player.OpenInventory();
+            }
+
+            // Show PlayerHealth
+            if (InputAnalysis.WantsToSeePlayerStats(playerAction))
+            {
+                Message.CreatureStats(_player);
             }
         }
         while (!_player.IsDead);

@@ -56,9 +56,16 @@ using TextAdventure.Values;
             else
             {
                 // List all Inventory items
-                foreach (var Item in Inventory)
+                Console.WriteLine("(Equiped?)  Amount  Itemname");
+                Console.WriteLine("----------------------------");
+                foreach (var item in Inventory)
                 {
-                    Console.WriteLine($"{Item.Name}");
+                    var itemEquiped = " ";
+                    if (item.Active)
+                    {
+                        itemEquiped = "x";
+                    }
+                    Console.WriteLine($"({itemEquiped}) {item.Amount}x {item.Name}");
                 }
                 Console.WriteLine();
                 string playerAction = AskForInput.InventoryOptions();

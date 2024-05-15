@@ -80,4 +80,10 @@ class InputAnalysis
         return choice.StartsWith("S", StringComparison.OrdinalIgnoreCase) 
         || choice.Contains("Stop", StringComparison.OrdinalIgnoreCase);
     }
+
+    public static bool WantsToSeePlayerStats(string choice)
+    {
+        return choice.StartsWith("H", StringComparison.OrdinalIgnoreCase) 
+        || choice.Contains("Health", StringComparison.OrdinalIgnoreCase);
+    }
 }
