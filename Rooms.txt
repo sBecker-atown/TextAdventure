@@ -1,0 +1,34 @@
+{
+    "RoomIndex": 000,
+    "Name": "Courtyard",
+    "Description": "You stand at the entry of a dank crypt, vines are\n
+            growing out of old stone, hanging partly over the entry.\n
+            You see the following creature guarding the entrance:\n",
+    "Monster": "Skeleton",
+    "Loot": null,
+    "DescriptionNoFight": "You stand at the entry of a dank crypt, vines are\n
+            growing out of old stone, hanging partly over the entry.\n",
+    "RoomBoundaries" {
+        "North": "Wall",
+        "East": "Passage - 001",
+        "South": "Wall",
+        "West": "Passage - 000"
+    }
+}
+
+{
+    "RoomIndex": 001,
+    "Name": "Entry Hall",
+    "Description": null,
+    "Monster": null,
+    "Loot": "Flower Key",
+    "DescriptionNoFight": "This empty room is the entrance hall of the crypt.\n
+            Boxes are piled up at the walls and some shelves are\n
+            storing urns and stone slates intended for gravestones.\n",
+    "RoomBoundaries" {
+        "North": "Wall",
+        "East": "Passage - 002",
+        "South": "Wall",
+        "West": "Passage - 000"
+    }
+}
